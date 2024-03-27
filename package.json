@@ -1,0 +1,43 @@
+{
+  "name": "bolg-ui",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite -- open",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
+  },
+  "dependencies": {
+    "@vue/eslint-config-standard": "^8.0.1",
+    "@vueuse/core": "9.5.0",
+    "ant-design-vue": "~4.1.2",
+    "autoprefixer": "^10.4.19",
+    "axios": "0.27.2",
+    "echarts": "5.4.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "file-saver": "2.0.5",
+    "pinia": "^2.1.7",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.1",
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.0",
+    "js-cookie": "3.0.5"
+  },
+  "devDependencies": {
+    "@rushstack/eslint-patch": "^1.8.0",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "@vue/compiler-sfc": "3.2.45",
+    "@vue/eslint-config-prettier": "^8.0.0",
+    "babel-plugin-import": "^1.13.8",
+    "eslint": "^8.57.0",
+    "eslint-plugin-vue": "^9.23.0",
+    "prettier": "^3.2.5",
+    "sass": "1.56.1",
+    "vite": "^5.2.6",
+    "vite-plugin-eslint": "^1.8.1"
+  }
+}
