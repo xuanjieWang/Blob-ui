@@ -5,7 +5,8 @@
     <!-- </div> -->
     <div class="flex justify-center">
       <!-- <LeftSlider /> -->
-      <Content />
+      <router-view :key="$route.path" />
+      <!-- <Content /> -->
       <!-- <RightSlider /> -->
     </div>
     <Footer />
