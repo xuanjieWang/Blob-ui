@@ -6,7 +6,7 @@ import router from './router'
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/reset.css'
 
-import plugins from './plugins/index' // plugins
+// import plugins from './plugins/index' // plugins
 
 // 引入Tailwindcss
 import 'tailwindcss/components.css'
@@ -18,6 +18,6 @@ const app = createApp(App)
 app.use(router)
 app.use(Antd)
 app.use(store)
-app.use(plugins)
+// app.use(plugins)
 
 app.mount('#app')
