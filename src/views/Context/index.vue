@@ -2,12 +2,12 @@
 <template>
   <div class="main flex flex-col">
     <div class="article">
-      <div class="item flex flex-col rounded" v-for="item in blogList" @click="checkBlog(item)">
-        <div class="image">
+      <div class="item flex flex-col rounded" v-for="item in blogList">
+        <div class="image" @click="checkBlog(item)">
           <img :src="item.image" alt="Your Image" />
         </div>
         <div class="text">
-          <p>&nbsp;&nbsp;{{ item.title }}</p>
+          <p @click="checkBlog(item)">&nbsp;&nbsp;{{ item.title }}</p>
         </div>
         <div class="info flex justify-around items-center">
           <span>浏览量: 5799</span>
@@ -24,7 +24,7 @@
 
 <script setup>
 // import Card from './card/index.vue'
-import { list } from '@/api/blog'
+import { list } from '../../api/blog'
 import { onMounted, ref, toRefs, reactive, getCurrentInstance } from 'vue'
 const { proxy } = getCurrentInstance()
 import useBlogStore from '../../stores/blog'
@@ -49,8 +49,7 @@ onMounted(async () => {
 
 const current = ref(2)
 const checkBlog = (data) => {
-  blogStore.setData(data)
-  proxy.$router.push({ name: '/blog' }) // 编程式导航
+  proxy.$router.push('/blog' + data.id) // 编程式导航
 }
 </script>
 <style scoped>

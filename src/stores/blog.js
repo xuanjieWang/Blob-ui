@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia'
 const useBlogStore = defineStore('blog', {
   state: () => ({
-    data: null
+    login: true,
+    data: {}
   }),
   actions: {
     getData() {
@@ -9,6 +10,9 @@ const useBlogStore = defineStore('blog', {
     },
     setData(data) {
       this.data = data
+    },
+    setLoginStatus(data) {
+      this.login = data
     }
   }
 })

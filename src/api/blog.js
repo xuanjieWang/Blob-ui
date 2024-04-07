@@ -7,3 +7,10 @@ export function list(params) {
     params: params
   })
 }
+
+export function getBlog(id) {
+  return request({
+    url: '/blog/data/' + id,
+    method: 'get'
+  })
+}

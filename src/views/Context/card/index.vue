@@ -1,85 +1,73 @@
 <!--页面-->
 <template>
   <div class="item flex flex-col rounded">
-    <div class="image">
-      <img src="../../../assets/img/bg.jpg" alt="Your Image" />
+    <img :src="data.image" style="width: 100%; height: 260px; border-radius: 5px" />
+    <div class="flex flex-col rounded">
+      <div class="topItem">
+        <div class="title">{{ data.title }}</div>
+        <div class="describe">
+          <span>{{ formatDateToChinese(data.createTime) }}</span>
+          <span>·&nbsp;{{ data.like || 1890 }}喜欢</span>
+          <span>·&nbsp;{{ data.common || 2349 }}浏览</span>
+          <span>·&nbsp;{{ data.common || 129 }}评论</span>
+        </div>
+      </div>
+      <div class="output" v-html="output"></div>
     </div>
-    <div class="text">
-      <p>&nbsp;&nbsp;如何拥有真实的美国手机号 | 从免费到超贵，三种实用方案推荐 | VLOG32</p>
-    </div>
-    <div class="info flex justify-around items-center">
-      <span>时间: 2024-03-25</span>
-      <span>浏览量: 5799</span>
-    </div>
+    <Common :blogId="data.id" />
   </div>
 </template>
 
 <script setup>
-import { ref, watch, getCurrentInstance, onMounted } from 'vue'
+import { marked } from 'marked'
+import hljs from 'highlight.js'
+import { ref, watch, getCurrentInstance, onMounted, reactive, computed } from 'vue'
+import { useRoute } from 'vue-router'
+import { list, getBlog } from '@/api/blog'
+import Common from '../common/index.vue'
 const { proxy } = getCurrentInstance()
-import useBlogStore from '../../../stores/blog'
-
-const blogStore = useBlogStore()
-
-onMounted(() => {
-  const data = blogStore.getData()
-  console.log(data)
-})
+const route = useRoute()
 
 const data = ref({})
-watch()
+const input = ref('')
+const output = ref(null)
+
+onMounted(async () => {
+  const blogId = route.params && route.params.blogId
+  const res = await getBlog(blogId)
+  if (res.data) {
+    data.value = res.data || {}
+    input.value = data.value.text
+
+    const renderer = new marked.Renderer()
+    const options = {
+      renderer: renderer, // 这个是必须填写的
+      gfm: true, // 启动类似Github样式的Markdown,
+      pedantic: false, // 只解析符合Markdown定义的，不修正Markdown的错误
+      sanitize: false, // 原始输出，忽略HTML标签
+      tables: true, // 支持Github形式的表格，必须打开gfm选项
+      breaks: false, // 支持Github换行符，必须打开gfm选项
+      smartLists: true, // 优化列表输出
+      smartypants: false,
+      highlight: function (code, language) {
+        const validLanguage = hljs.getLanguage(language) ? language : 'plaintext'
+        return hljs.highlight(validLanguage, code).value
+      }
+    }
+    output.value = marked(input.value, options)
+  }
+})
+
+// 时间格式转换
+function formatDateToChinese(dateTimeString) {
+  const dateTime = new Date(dateTimeString)
+  const year = dateTime.getFullYear()
+  const month = dateTime.getMonth() + 1
+  const date = dateTime.getDate()
+  const hour = dateTime.getHours()
+  const minute = dateTime.getMinutes()
+  const second = dateTime.getSeconds()
+  return `${year}年${month}月${date}日 ${hour}时${minute}分${second}秒`
+}
 </script>
-<style scoped lang="scss">
-.item {
-  height: 240px;
-  min-width: 270px;
-  margin: 5px 10px 5px 5px;
-}
-.image {
-  height: 150px;
-  width: 270px;
-  transition: transform 0.3s;
-  cursor: pointer;
-  overflow: hidden; /* 隐藏超出部分 */
-  position: relative;
-}
-img {
-  width: 100%; /* 图片宽度占满容器 */
-  height: 100%; /* 图片高度占满容器 */
-  transition: transform 0.3s; /* 添加过渡效果 */
-
-  /* 默认缩放效果 */
-  transform-origin: 0 0 0 0;
-  transform: scale(1);
-}
-
-img:hover {
-  transform: scale(1.05); /* 鼠标悬停时放大图片 */
-}
-.text {
-  padding: 8px;
-  width: 270px;
-  height: 60px;
-  background: #27272a;
-  color: #cbd5e1;
-  font-size: 14px;
-}
-.info {
-  background: #27272a;
-  height: 30px;
-  margin-top: -10px;
-}
-
-p {
-  display: -webkit-box; /* 使用flexbox布局 */
-  -webkit-box-orient: vertical; /* 垂直排列 */
-  -webkit-line-clamp: 2; /* 显示两行 */
-  overflow: hidden; /* 隐藏溢出内容 */
-  text-overflow: ellipsis; /* 显示省略号 */
-  cursor: pointer;
-}
-span {
-  font-size: 12px;
-  color: #785d2a;
-}
-</style>
+<style scoped src="./index.scss"></style>

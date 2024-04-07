@@ -1,0 +1,82 @@
+.item {
+  // min-height: 100vh;
+  min-width: 400px;
+  width: 60%;
+  font-size: 16px;
+}
+.topItem {
+  margin-top: 5px;
+  border-radius: 8px 8px 0 0;
+  border: 1px solid #e5e5e5;
+  background-color: #fff;
+}
+.title {
+  text-align: center; /* 水平居中 */
+  line-height: 60px;
+  font-size: 40px;
+}
+.describe {
+  font-size: 14px;
+  text-align: center;
+  color: #8b8989;
+}
+.editor {
+  height: 100vh;
+  display: flex;
+}
+.input,
+.output {
+  overflow: auto;
+  min-height: 40vh;
+  max-height: 80vh;
+  padding: 0 20px;
+  background-color: #fff;
+  border-radius: 0 0 8px 8px;
+}
+
+code {
+  color: #f66;
+}
+code {
+  margin: 0 5px;
+  padding: 2px 5px;
+  background-color: #ffe0e0;
+  color: #ff502c;
+  border-radius: 5px;
+}
+
+/* 代码块 */
+pre > code {
+  display: block;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #333;
+  border-radius: 5px;
+  overflow-y: auto;
+  color: #fff;
+  font-family: Menlo, monospace;
+}
+
+/* p标签的颜色 */
+p {
+  color: #666;
+}
+
+ul {
+  margin-bottom: 16px;
+  font-size: 1rem;
+  letter-spacing: 0.1rem;
+}
+
+/* li 的项目符号在内侧，显示项目符号 */
+ul > li {
+  list-style: disc inside;
+}
+
+ol {
+  font-size: 1rem;
+}
+
+ol > li {
+  list-style: none;
+}
