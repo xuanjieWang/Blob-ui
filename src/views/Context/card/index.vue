@@ -7,9 +7,10 @@
         <div class="title">{{ data.title }}</div>
         <div class="describe">
           <span>{{ formatDateToChinese(data.createTime) }}</span>
-          <span>·&nbsp;{{ data.like || 1890 }}喜欢</span>
-          <span>·&nbsp;{{ data.common || 2349 }}浏览</span>
-          <span>·&nbsp;{{ data.common || 129 }}评论</span>
+          <span>&nbsp;<EyeOutlined class="icon-center" />&nbsp;{{ data.videoCount }}</span>
+          <span>&nbsp;<MessageOutlined class="icon-center" />&nbsp;{{ data.commonCount }}</span>
+
+          <!-- <span>·&nbsp;{{ data.commonCount }}评论</span> -->
         </div>
       </div>
       <div class="output" v-html="output"></div>
@@ -21,6 +22,7 @@
 <script setup>
 import { marked } from 'marked'
 import hljs from 'highlight.js'
+import { EyeOutlined, MessageOutlined } from '@ant-design/icons-vue'
 import { ref, watch, getCurrentInstance, onMounted, reactive, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { list, getBlog } from '@/api/blog'
@@ -62,12 +64,12 @@ onMounted(async () => {
 function formatDateToChinese(dateTimeString) {
   const dateTime = new Date(dateTimeString)
   const year = dateTime.getFullYear()
-  const month = dateTime.getMonth() + 1
-  const date = dateTime.getDate()
-  const hour = dateTime.getHours()
-  const minute = dateTime.getMinutes()
-  const second = dateTime.getSeconds()
-  return `${year}年${month}月${date}日 ${hour}时${minute}分${second}秒`
+  const month = (dateTime.getMonth() + 1).toString().padStart(2, '0')
+  const date = dateTime.getDate().toString().padStart(2, '0')
+  const hour = dateTime.getHours().toString().padStart(2, '0')
+  const minute = dateTime.getMinutes().toString().padStart(2, '0')
+  const second = dateTime.getSeconds().toString().padStart(2, '0')
+  return `${year}-${month}-${date} ${hour}:${minute}:${second}`
 }
 </script>
 <style scoped src="./index.scss"></style>

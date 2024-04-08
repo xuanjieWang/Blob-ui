@@ -6,8 +6,13 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/index',
+      path: '/',
       name: 'Context',
+      component: Context
+    },
+    {
+      path: '/index',
+      name: 'index',
       component: Context
     },
     {

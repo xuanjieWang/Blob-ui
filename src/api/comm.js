@@ -1,17 +1,16 @@
 import request from '@/utils/request'
 
-export function listComm(params) {
+export function listComm(id) {
   return request({
-    url: '/comm/data/listComm',
-    method: 'get',
-    params: params
+    url: '/comm/data/' + id,
+    method: 'get'
   })
 }
 
 export function addComm(data) {
   return request({
     url: '/comm/data/addComm',
-    method: 'post',
+    method: 'put',
     data: data
   })
 }

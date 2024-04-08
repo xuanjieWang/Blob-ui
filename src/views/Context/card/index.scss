@@ -16,9 +16,14 @@
   font-size: 40px;
 }
 .describe {
-  font-size: 14px;
-  text-align: center;
+  font-size: 16px;
   color: #8b8989;
+  text-align: center;
+}
+
+.icon-center {
+  vertical-align: middle; /* 垂直居中 */
+  text-align: center; /* 水平居中，但通常与 flexbox 或 grid 结合使用效果更佳 */
 }
 .editor {
   height: 100vh;

@@ -8,25 +8,27 @@
         {{ isLogin ? '点击发布' : '请先登录' }}
       </a-button>
     </div>
-    <div class="common">显示评论区域</div>
+    <div class="common">
+      显示评论区域
+
+      {{ commonList }}
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch, defineProps } from 'vue'
+import { ref, computed, onMounted, watch, defineProps, getCurrentInstance, reactive } from 'vue'
 import useBlogStore from '../../../stores/blog'
 import { listComm, addComm } from '../../../api/comm'
+import { message } from 'ant-design-vue'
+import { RotateLeftOutlined } from '@ant-design/icons-vue'
 const blogStore = useBlogStore()
+const { proxy } = getCurrentInstance()
 
 const iconLoading = ref(false)
 const value = ref('')
-const id = ref('')
-
-/****
- * 添加评论。只需要添加出
- *
- */
-
+const blogId = ref(0)
+const commonList = ref([])
 // 计算属性，是否登录
 const isLogin = computed(() => {
   return blogStore.login
@@ -34,37 +36,41 @@ const isLogin = computed(() => {
 
 const props = defineProps({
   blogId: {
-    type: Number
+    type: Number,
+    require: true
   }
 })
 
-//设置文章id
-onMounted(async () => {
-  id.value = props.blogId
-  getComment()
-})
-
-//根据文章id获取到信息
-async function getComment(id) {
-  const res = await listComm()
-  console.log(id, res)
-}
 //先判断是否登录
 function enterIconLoading() {
-  if (!isLogin) return
+  if (!isLogin) {
+    message.success('请先进行登录！')
+    // proxy.$router.push('/login') // 编程式导航
+    // 登录的逻辑
+    return
+  }
   iconLoading.value = true
-  setTimeout(() => {
+  setTimeout(async () => {
     if (value.value) {
-      console.log(id.value)
+      // 发布评论信息
+      await addComm({
+        content: value.value,
+        blogId: id.value,
+        userId: 1
+      })
     }
     iconLoading.value = false
-  }, 500)
+    message.success('发布成功！')
+  }, 1000)
 }
 
 watch(
   () => props.blogId,
-  (value) => {
-    id.value = value
+  async (value) => {
+    blogId.value = value
+    const res = await listComm(blogId.value)
+    commonList.value = Object.assign({}, res.rows)
+    console.log(commonList.value)
   }
 )
 </script>
