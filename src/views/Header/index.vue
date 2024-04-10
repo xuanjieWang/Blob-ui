@@ -1,15 +1,21 @@
 <!--页面-->
 <template>
   <div class="headerStyle flex items-center">
-    <div class="name">王玄杰</div>
-    <div>首页</div>
-    <div>留言板</div>
-    <div>博客</div>
-    <div>关于我</div>
+    <div class="name" @click="go('/index')">王玄杰</div>
+    <TextButton text="博客" @click="go('/blog')"></TextButton>
+    <TextButton text="留言板"></TextButton>
+    <TextButton text="关于我"></TextButton>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { getCurrentInstance } from 'vue'
+const { proxy } = getCurrentInstance()
+
+function go(path) {
+  proxy.$router.push(path) // 编程式导航
+}
+</script>
 <style scoped>
 .headerStyle {
   height: 50px;
@@ -26,6 +32,7 @@
 .headerStyle > div {
   position: relative;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .headerStyle div:nth-of-type(1) {
@@ -36,18 +43,18 @@
   text-decoration: underline;
 }
 .headerStyle div:nth-of-type(2) {
-  left: 58%;
+  left: 50%;
 }
 .headerStyle div:nth-of-type(3) {
-  left: 62%;
+  left: 52%;
 }
 .headerStyle div:nth-of-type(4) {
-  left: 66%;
+  left: 54%;
 }
 .headerStyle div:nth-of-type(5) {
-  left: 72%;
+  left: 56%;
 }
 .headerStyle div:nth-of-type(6) {
-  left: 76%;
+  left: 58%;
 }
 </style>

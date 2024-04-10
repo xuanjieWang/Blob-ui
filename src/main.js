@@ -13,7 +13,12 @@ import 'tailwindcss/components.css'
 import 'tailwindcss/utilities.css'
 import './assets/css/tailwind.css'
 
+// 全局组件
+import TextButton from '../src/components/TextButton/index.vue'
+
 const app = createApp(App)
+
+app.component('TextButton', TextButton)
 
 app.use(router)
 app.use(Antd)

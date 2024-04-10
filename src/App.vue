@@ -12,9 +12,9 @@
 
 <script setup>
 import Header from './views/Header/index.vue'
-import LeftSlider from './views/LeftSlider/index.vue'
-import RightSlider from './views/RightSlider/index.vue'
-import Content from './views/Context/index.vue'
+// import LeftSlider from './views/LeftSlider/index.vue'
+// import RightSlider from './views/RightSlider/index.vue'
+// import Content from './views/Context/index.vue'
 import Footer from './views/Footer/index.vue'
 </script>
 <style lang="scss">
