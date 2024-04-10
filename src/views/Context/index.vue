@@ -1,120 +1,80 @@
 <!--页面-->
 <template>
-  <div class="main flex flex-col">
+  <div class="main">
     <div class="article">
-      <div class="item flex flex-col rounded" v-for="item in blogList">
-        <div class="image" @click="checkBlog(item)">
-          <img :src="item.image" alt="Your Image" />
-        </div>
-        <div class="text">
-          <p @click="checkBlog(item)">&nbsp;&nbsp;{{ item.title }}</p>
-        </div>
-        <div class="info flex justify-around items-center">
-          <span>浏览量: 5799</span>
-          <span>{{ item.createTime }}</span>
-        </div>
-      </div>
-    </div>
-    <div class="flex justify-center items-center" style="margin-top: 90vh">
-      <a-pagination v-model:current="queryParams.pageNum" :total="total" />
-      <span>共: {{ total }}条</span>
+      <p>你好, 我是</p>
+      <p>王玄杰</p>
+      <p>一名全栈开发工程师</p>
+      <p>
+        喜欢<span class="java">Java</span>、<span class="Python">Python</span
+        >、<span class="Go">Go</span><span>&nbsp;和&nbsp;</span
+        ><span class="Vue">Vue</span>、<span class="React">React</span>
+      </p>
+      <p>我在这个网站记录我的成长，努力 💪 成为一个更好的程序员</p>
     </div>
   </div>
 </template>
 
-<script setup>
-// import Card from './card/index.vue'
-import { list } from '../../api/blog'
-import { onMounted, ref, toRefs, reactive, getCurrentInstance } from 'vue'
-const { proxy } = getCurrentInstance()
-import useBlogStore from '../../stores/blog'
-const blogStore = useBlogStore()
-
-const total = ref(0)
-const data = reactive({
-  queryParams: {
-    pageNum: 1,
-    pageSize: 12,
-    timeRange: ''
-  }
-})
-const { queryParams } = toRefs(data)
-const blogList = ref([])
-
-onMounted(async () => {
-  const res = await list(queryParams)
-  blogList.value = Object.assign({}, res.rows)
-  total.value = res.total
-})
-
-const current = ref(2)
-const checkBlog = (data) => {
-  proxy.$router.push('/blog' + data.id) // 编程式导航
-}
-</script>
+<script setup></script>
 <style scoped>
 .main {
-  height: 100%;
-  min-height: 100vh;
-  width: 1240px;
+  width: 65%;
+  height: 100vh;
+  margin-left: 18%;
+  margin-right: 10%;
 }
 .article {
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
-}
-.p {
-  color: aliceblue;
-}
-.item {
-  height: 240px;
-  min-width: 270px;
-  margin: 5px 10px 5px 5px;
-}
-.image {
-  height: 150px;
-  width: 270px;
-  transition: transform 0.3s;
-  cursor: pointer;
-  overflow: hidden; /* 隐藏超出部分 */
   position: relative;
+  top: 28%;
+  width: 100%;
+  color: #fff;
 }
-img {
-  width: 100%; /* 图片宽度占满容器 */
-  height: 100%; /* 图片高度占满容器 */
-  transition: transform 0.3s; /* 添加过渡效果 */
-
-  /* 默认缩放效果 */
-  transform-origin: 0 0 0 0;
-  transform: scale(1);
+.article p:first-of-type {
+  font-size: 1.6rem;
 }
-
-img:hover {
-  transform: scale(1.05); /* 鼠标悬停时放大图片 */
+.article p:nth-of-type(2) {
+  font-size: 2.8rem;
+  color: #25c8ef;
+  font-weight: 700;
 }
-.text {
-  padding: 8px;
-  width: 270px;
-  height: 60px;
-  background: #27272a;
-  color: #cbd5e1;
-  font-size: 14px;
+.article p:nth-of-type(3) {
+  font-size: 1.6rem;
+  color: #fff;
 }
-.info {
-  background: #27272a;
-  height: 30px;
-  margin-top: -10px;
+.article p:nth-of-type(4) {
+  font-size: 1.4rem;
+  color: #fff;
 }
-
-p {
-  display: -webkit-box; /* 使用flexbox布局 */
-  -webkit-box-orient: vertical; /* 垂直排列 */
-  -webkit-line-clamp: 2; /* 显示两行 */
-  overflow: hidden; /* 隐藏溢出内容 */
-  text-overflow: ellipsis; /* 显示省略号 */
-  cursor: pointer;
+.article p:nth-of-type(5) {
+  font-size: 1rem;
+  color: #fff;
 }
-span {
-  font-size: 12px;
-  color: #785d2a;
+.java {
+  background-image: linear-gradient(to right, #cc6600, #ffaa33);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.Python {
+  background-image: linear-gradient(to right, #00aa00, #33ff33);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.Go {
+  background-image: linear-gradient(to right, #0000aa, #0000ff);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.Vue {
+  background-image: linear-gradient(to right, #00ff99, #77ffcc);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.React {
+  background-image: linear-gradient(to right, #5555ff, #5555ff);
+  -webkit-background-clip: text;
+  color: transparent;
 }
 </style>

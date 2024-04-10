@@ -1,7 +1,7 @@
 <!--页面-->
 <template>
   <div class="flex">
-    <span style="min-width: 120px; margin-left: 5%" @click="goHome">这里是王玄杰</span>
+    <span style="min-width: 120px; margin-left: 5%" @click="goHome">王玄杰</span>
     <div style="width: 100px; margin-left: 50px">生活</div>
     <div style="width: 100px">前端</div>
     <div style="width: 100px">后端</div>
