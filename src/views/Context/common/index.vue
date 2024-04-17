@@ -70,7 +70,6 @@ watch(
     blogId.value = value
     const res = await listComm(blogId.value)
     commonList.value = Object.assign({}, res.rows)
-    console.log(commonList.value)
   }
 )
 </script>
