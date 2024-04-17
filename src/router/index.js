@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Blog from '../views/Context/card/index.vue'
-import Context from '../views/Context/index.vue'
+import Context from '../views/Context/index.vue' //主页
+import Blog from '../views/Context/blog/index.vue' //blog
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,10 +16,15 @@ const router = createRouter({
       component: Context
     },
     {
-      path: '/blog:blogId(\\d+)',
+      path: '/blog',
       name: 'blog',
       component: Blog
     }
+    // {
+    //   path: '/blog:blogId(\\d+)',
+    //   name: 'blog',
+    //   component: Blog
+    // }
   ]
 })
 

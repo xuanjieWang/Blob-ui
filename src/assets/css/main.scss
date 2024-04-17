@@ -26,11 +26,7 @@ body {
 }
 
 .card {
-  background: linear-gradient(
-    to bottom right,
-    #ffcccc,
-    #cc99ff
-  ); /* 设置从左上到右下的渐变色 */
+  background: linear-gradient(to bottom right, #ffcccc, #cc99ff); /* 设置从左上到右下的渐变色 */
   width: 90%;
   min-width: 240px;
   height: 150px;
@@ -52,6 +48,7 @@ html {
   html {
     font-size: 25px;
   }
+  //标签大小
 }
 @media (max-width: 1200px) {
   html {
