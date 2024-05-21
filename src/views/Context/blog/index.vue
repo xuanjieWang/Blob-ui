@@ -9,8 +9,8 @@
         <div class="text">
           <p @click="checkBlog(item)">&nbsp;&nbsp;{{ item.title }}</p>
         </div>
-        <div class="info flex justify-around items-center">
-          <span>浏览量: 5799</span>
+        <div class="info flex items-center">
+          <!-- <span>浏览量: 5799</span> -->
           <span>{{ item.createTime }}</span>
         </div>
       </div>

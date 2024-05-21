@@ -24,6 +24,6 @@ import Footer from './views/Footer/index.vue'
   // background-size: cover; /* 可选，根据需要设置背景大小 */
   // background-position: center; /* 可选，根据需要设置背景位置 */
   z-index: 10000;
-  background: black;
+  background: #fff;
 }
 </style>

@@ -2,7 +2,7 @@
 <template>
   <div>
     <div class="body flex flex-col">
-      <h1 style="font-size: 20px; margin: 10px">发布评论</h1>
+      <span style="font-size: 20px; margin: 10px">发布评论</span>
       <a-textarea v-model:value="value" placeholder="评论" :rows="5" />
       <a-button class="button" type="primary" :loading="iconLoading" @click="enterIconLoading">
         {{ isLogin ? '点击发布' : '请先登录' }}
@@ -10,7 +10,6 @@
     </div>
     <div class="common">
       显示评论区域
-
       {{ commonList }}
     </div>
   </div>

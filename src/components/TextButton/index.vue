@@ -17,6 +17,7 @@ const props = defineProps({
   height: 35px;
   line-height: 35px;
   padding: 0 15px 0 15px;
+  font-weight: 500;
 }
 .body:hover {
   background: #27272a;
