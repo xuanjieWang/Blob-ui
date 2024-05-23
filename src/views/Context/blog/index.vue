@@ -1,24 +1,21 @@
 <!--页面-->
 <template>
-  <div class="blog flex flex-col">
-    <div class="article">
-      <div class="item flex flex-col rounded" v-for="item in blogList">
-        <div class="image" @click="checkBlog(item)">
-          <img :src="item.image" alt="Your Image" />
-        </div>
-        <div class="text">
-          <p @click="checkBlog(item)">&nbsp;&nbsp;{{ item.title }}</p>
-        </div>
-        <div class="info flex items-center">
-          <!-- <span>浏览量: 5799</span> -->
-          <span>{{ item.createTime }}</span>
-        </div>
+  <div class="blog">
+    <div class="item flex flex-col rounded" v-for="item in blogList">
+      <div class="image" @click="checkBlog(item)">
+        <img :src="item.image" alt="Your Image" />
+      </div>
+      <div class="text">
+        <p @click="checkBlog(item)">&nbsp;&nbsp;{{ item.title }}</p>
+      </div>
+      <div class="info flex items-center">
+        <span>{{ item.createTime }}</span>
       </div>
     </div>
-    <div class="flex justify-center items-center" style="margin-top: 90vh">
+    <!-- <div class="flex justify-center items-center" style="margin-top: 90vh">
       <a-pagination v-model:current="queryParams.pageNum" :total="total" />
       <span>共: {{ total }}条</span>
-    </div>
+    </div> -->
   </div>
 </template>
 

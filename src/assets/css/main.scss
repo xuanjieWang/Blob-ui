@@ -38,10 +38,6 @@ body {
   padding: 20px; /* 可选：增加内边距以使内容不紧贴边框 */
 }
 
-.sidebar {
-  width: 300px;
-  background: transparent;
-}
 html {
   font-size: 30px;
 }
@@ -68,7 +64,7 @@ html {
 }
 /* 设置滚动条的样式 */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 4px;
 }
 /* 滚动槽 */
 ::-webkit-scrollbar-track {
@@ -77,7 +73,7 @@ html {
 }
 /* 滚动条滑块 */
 ::-webkit-scrollbar-thumb {
-  border-radius: 5px;
+  border-radius: 4px;
   background: #1f2020;
   -webkit-box-shadow: inset006pxrgba(0, 0, 0, 0.5);
 }

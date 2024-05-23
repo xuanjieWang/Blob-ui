@@ -1,13 +1,7 @@
 .blog {
-  width: 65%;
-  min-height: 100vh;
-  margin-left: 16%;
-  margin-right: 10%;
-  margin-top: 5%;
-}
-.article {
-  display: flex;
-  flex-wrap: wrap;
+  width: 66%;
+  height: 100%;
+  margin: 5% auto;
 }
 .p {
   color: aliceblue;
@@ -48,7 +42,7 @@ img:hover {
   font-size: 14px;
 }
 .info {
-  background: #27272a;
+  // background: #27272a;
   height: 30px;
   margin-top: -10px;
 }
@@ -63,6 +57,6 @@ p {
 }
 span {
   font-size: 16px;
-  color: #785d2a;
+  // color: #785d2a;
   margin-left: 20px;
 }

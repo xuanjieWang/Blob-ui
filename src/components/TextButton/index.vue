@@ -1,6 +1,6 @@
 <!--页面-->
 <template>
-  <div class="body">{{ props.text }}</div>
+  <div class="button">{{ props.text }}</div>
 </template>
 
 <script setup>
@@ -12,14 +12,17 @@ const props = defineProps({
 })
 </script>
 <style lang="scss" scoped>
-.body {
+.button {
   border-radius: 8px;
-  height: 35px;
-  line-height: 35px;
-  padding: 0 15px 0 15px;
+  min-width: 80px;
+  height: 40px;
+  line-height: 40px;
+  margin: 0px 20px 0px 20px;
   font-weight: 500;
+  text-align: center;
 }
-.body:hover {
-  background: #27272a;
+.button:hover {
+  background: #4a7aa7;
+  color: #fff;
 }
 </style>

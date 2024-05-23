@@ -1,19 +1,16 @@
 <!--页面-->
 <template>
   <div class="item flex flex-col">
-    <img :src="data.image" style="width: 100%; height: 260px; border-radius: 5px" />
-    <div class="flex flex-col rounded">
-      <div class="topItem">
-        <div class="title">{{ data.title }}</div>
-        <div class="describe">
-          <span>{{ formatDateToChinese(data.createTime) }}</span>
-          <span>&nbsp;<EyeOutlined class="icon-center" />&nbsp;{{ data.videoCount }}</span>
-          <span>&nbsp;<MessageOutlined class="icon-center" />&nbsp;{{ data.commonCount }}</span>
-        </div>
+    <!-- <img :src="data.image" style="width: 100%; height: 380px; border-radius: 10px" /> -->
+    <div class="flex flex-col rounded titleCard">
+      <div class="title">{{ data.title }}</div>
+      <div class="describe">
+        <span>{{ formatDateToChinese(data.createTime) }}</span>
+        <span>&nbsp;<EyeOutlined class="icon-center" />&nbsp;{{ data.videoCount }}</span>
+        <span>&nbsp;<MessageOutlined class="icon-center" />&nbsp;{{ data.commonCount }}</span>
       </div>
     </div>
     <div id="output" v-html="output"></div>
-
     <Common :blogId="data.id" />
   </div>
 </template>
@@ -22,11 +19,10 @@
 import { marked } from 'marked'
 import hljs from 'highlight.js'
 import { EyeOutlined, MessageOutlined } from '@ant-design/icons-vue'
-import { ref, watch, getCurrentInstance, onMounted, reactive, computed } from 'vue'
+import { ref, watch, getCurrentInstance, onMounted, reactive, computed, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
 import { list, getBlog } from '@/api/blog'
 import Common from '../common/index.vue'
-import { parseMD } from './index'
 
 const { proxy } = getCurrentInstance()
 const route = useRoute()
@@ -41,9 +37,6 @@ onMounted(async () => {
   if (res.data) {
     data.value = res.data || {}
     input.value = data.value.text
-
-    // parseMD(input.value)
-
     const options = {
       renderer: new marked.Renderer(), // 这个是必须填写的
       gfm: true, // 启动类似Github样式的Markdown,
@@ -58,13 +51,63 @@ onMounted(async () => {
         return hljs.highlight(validLanguage, code).value
       }
     }
-
     output.value = marked(input.value, options)
+    getPoint()
   }
-  console.log(output.value)
-  document.getElementById('output').innerHTML = '<h1> woshji </h1>'
-  // console.log(docu)
 })
+
+const List = []
+const h2List = []
+const h3List = []
+const h4List = []
+const h5List = []
+
+const hLists = {
+  H2: h2List,
+  H3: h3List,
+  H4: h4List,
+  H5: h5List
+}
+
+// 遍历标签，给标签添加锚点
+function getPoint() {
+  const data = document.getElementById('output')
+  nextTick(() => {
+    for (let i = 0; i < data.childNodes.length; i++) {
+      const child = data.childNodes[i]
+      if (!child.nodeName.includes('H')) continue //判断子节点是不是H节点
+      const num = child.nodeName.slice(1)
+      List.push('list_' + i)
+      hLists[`H${num}`].push('list_' + i) //存储到对应的数组
+      child.setAttribute('id', 'list_' + i)
+    }
+
+    // 锚点添加完成
+    // 制作跳转
+
+    const list1 = []
+
+    // 需要写一个递归算法
+    for (let i = 0; i < h2List.length; i++) {
+      list1[i] = [h2List[i]]
+      // if()
+
+      const element = array[i]
+    }
+  })
+
+  // h2Tags.value = output.value.match(/<h2.*?<\/h2>/g)
+  // // 标签添加
+  // //  <h2 id="anchor1">这是锚点</h2>
+  // //  <a href="#anchor2">跳转到锚点</a>
+  // if (h2Tags.value) {
+  //   for (let i = 0; i < h2Tags.value.length; i++) {
+  //     // h2Tags.value[i] = h2Tags.value[i].replace(/<h2.*?>|<\/h2>/g, '')
+  //     // h2Tags.value[i].
+  //   }
+  // }
+  // console.log(h2Tags.value)
+}
 
 // 时间格式转换
 function formatDateToChinese(dateTimeString) {
@@ -80,43 +123,51 @@ function formatDateToChinese(dateTimeString) {
 </script>
 <style>
 .item {
-  margin: 3% 20% 0% 20%;
+  /* margin-top: 3%; */
   min-width: 400px;
-  width: 60%;
+  width: 100%;
   font-size: 16px;
-  color: rgb(255, 255, 255);
-}
-.topItem {
-  margin-top: 5px;
-  border-radius: 8px 8px 0 0;
-  background-color: #000;
+  color: #000;
+  background: transparent;
 }
 .title {
   text-align: center; /* 水平居中 */
   line-height: 60px;
   font-size: 40px;
+  margin-top: 20px;
 }
 .describe {
   font-size: 16px;
-  color: #8b8989;
+  color: #1234;
   text-align: center;
 }
-
+.titleCard {
+  margin: 30px 0 50px 0;
+  background: #8b8989;
+  height: 180px;
+  color: #1234;
+}
 .icon-center {
   vertical-align: middle; /* 垂直居中 */
   text-align: center; /* 水平居中，但通常与 flexbox 或 grid 结合使用效果更佳 */
 }
 h1 {
   font-size: 30px !important;
-  color: red;
+  color: rgb(50, 50, 93);
+  font-weight: 800 !important;
+  padding: 20px;
 }
 h2 {
   font-size: 30px !important;
-  color: red;
+  color: rgb(50, 50, 93);
+  font-weight: 800 !important;
+  padding: 20px;
 }
 h3 {
   font-size: 30px !important;
-  color: red;
+  color: rgb(50, 50, 93);
+  font-weight: 800 !important;
+  padding: 20px;
 }
 p {
   font-size: 20px;
@@ -126,7 +177,9 @@ p {
 li {
   font-size: 18px;
   line-height: 2;
-  text-indent: 20px;
+  text-indent: 0px !important;
+  list-style-type: disc;
+  margin-left: 50px;
 }
 ol {
   font-size: 18px;

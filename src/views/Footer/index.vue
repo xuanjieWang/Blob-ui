@@ -11,5 +11,6 @@
   width: 100%;
   height: 50px;
   color: #fff;
+  background: transparent;
 }
 </style>
