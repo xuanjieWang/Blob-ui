@@ -1,98 +1,67 @@
-// .item {
-//   margin: 3% 20% 0% 20%;
-//   min-width: 400px;
-//   width: 60%;
-//   font-size: 16px;
-// }
-// .topItem {
-//   margin-top: 5px;
-//   border-radius: 8px 8px 0 0;
-//   // border: 1px solid #e5e5e5;
-//   background-color: #000;
-//   color: rgb(255, 255, 255);
-// }
-// .title {
-//   text-align: center; /* 水平居中 */
-//   line-height: 60px;
-//   font-size: 40px;
-// }
-// .describe {
-//   font-size: 16px;
-//   color: #8b8989;
-//   text-align: center;
-// }
-
-// .icon-center {
-//   vertical-align: middle; /* 垂直居中 */
-//   text-align: center; /* 水平居中，但通常与 flexbox 或 grid 结合使用效果更佳 */
-// }
-// .editor {
-//   height: 100vh;
-//   display: flex;
-// }
-// // .input,
-// // .output {
-// //   overflow: auto;
-// //   min-height: 40vh;
-// //   max-height: 80vh;
-// //   padding: 0 20px;
-// //   // background-color: #fff;
-// //   background-color: #000;
-// //   color: #fff;
-// //   border-radius: 0 0 8px 8px;
-// // }
-// .output {
-//   color: rgb(255, 255, 255);
-// }
-
-// code {
-//   color: #f66;
-// }
-// code {
-//   margin: 0 5px;
-//   padding: 2px 5px;
-//   background-color: #ffe0e0;
-//   color: #ff502c;
-//   border-radius: 5px;
-// }
-
-// /* 代码块 */
-// pre > code {
-//   display: block;
-//   padding: 10px;
-//   margin: 10px 0;
-//   background-color: #333;
-//   border-radius: 5px;
-//   overflow-y: auto;
-//   color: #fff;
-//   font-family: Menlo, monospace;
-// }
-
-// /* p标签的颜色 */
-// p {
-//   color: #666;
-// }
-
-// ul {
-//   margin-bottom: 16px;
-//   font-size: 1rem;
-//   letter-spacing: 0.1rem;
-// }
-
-// /* li 的项目符号在内侧，显示项目符号 */
-// ul > li {
-//   list-style: disc inside;
-// }
-
-// ol {
-//   font-size: 1rem;
-// }
-
-// ol > li {
-//   list-style: none;
-// }
-
-// .output {
-//   line-height: 40px;
-//   font-size: 20px;
-// }
+.item {
+  width: 80%;
+  font-size: 16px;
+  color: #000;
+  // background: transparent;
+  background: #fff;
+  opacity: 0.6;
+  margin: 5% auto;
+  margin-left: 10%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.title {
+  text-align: center; /* 水平居中 */
+  font-size: 50px;
+  padding: 10px;
+}
+.describe {
+  font-size: 16px;
+  color: rgba(203, 213, 223, 0.67);
+  text-align: center;
+}
+.titleCard {
+  margin: 10px 0 20px 0;
+  height: 100px;
+  width: 100%;
+}
+.icon-center {
+  vertical-align: middle; /* 垂直居中 */
+  text-align: center; /* 水平居中，但通常与 flexbox 或 grid 结合使用效果更佳 */
+}
+h1 {
+  font-size: 30px !important;
+  color: rgb(50, 50, 93);
+  font-weight: 800 !important;
+  padding: 20px;
+}
+h2 {
+  font-size: 30px !important;
+  color: rgb(50, 50, 93);
+  font-weight: 800 !important;
+  padding: 20px;
+}
+h3 {
+  font-size: 30px !important;
+  color: rgb(50, 50, 93);
+  font-weight: 800 !important;
+  padding: 20px;
+}
+p {
+  font-size: 20px;
+  line-height: 2;
+  text-indent: 20px;
+}
+li {
+  font-size: 18px;
+  line-height: 2;
+  text-indent: 0px !important;
+  list-style-type: disc;
+  margin-left: 50px;
+}
+ol {
+  font-size: 18px;
+  line-height: 2;
+  text-indent: 20px;
+}

@@ -56,6 +56,9 @@ dependencies:
   tailwindcss:
     specifier: ^3.4.3
     version: 3.4.3
+  vditor:
+    specifier: ^3.10.2
+    version: 3.10.4
   vue:
     specifier: ^3.4.21
     version: 3.4.21
@@ -1288,6 +1291,10 @@ packages:
 
   /didyoumean@1.2.2:
     resolution: {integrity: sha512-gxtyfqMg7GKyhQmb056K7M3xszy/myH8w+B4RT+QXBQsvAOdc3XymqDDPHx1BgPgsdAA5SIifona89YtRATDzw==}
+    dev: false
+
+  /diff-match-patch@1.0.5:
+    resolution: {integrity: sha512-IayShXAgj/QMXgB0IWmKx+rOPuGMhqm5w6jvFxmVenXKIzRqTAAsbBPT3kWQeGANj3jGgvcvv4yK6SxqYmikgw==}
     dev: false
 
   /dlv@1.1.3:
@@ -3162,6 +3169,12 @@ packages:
 
   /util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
+
+  /vditor@3.10.4:
+    resolution: {integrity: sha512-NWaMom0buUvRjOCaK/jKeJEVfZNmfTgblK4+pxBoeTdiCYn5yWokcGYMh9GzHIvt5gy6FiQFc1VQvytIwyeIwA==}
+    dependencies:
+      diff-match-patch: 1.0.5
+    dev: false
 
   /vite-plugin-eslint@1.8.1(eslint@8.57.0)(vite@5.2.7):
     resolution: {integrity: sha512-PqdMf3Y2fLO9FsNPmMX+//2BF5SF8nEWspZdgl4kSt7UvHDRHVVfHvxsD7ULYzZrJDGRxR81Nq7TOFgwMnUang==}

@@ -1,17 +1,16 @@
 <!--页面-->
 <template>
   <div class="item flex flex-col">
-    <!-- <img :src="data.image" style="width: 100%; height: 380px; border-radius: 10px" /> -->
     <div class="flex flex-col rounded titleCard">
       <div class="title">{{ data.title }}</div>
       <div class="describe">
-        <span>{{ formatDateToChinese(data.createTime) }}</span>
-        <span>&nbsp;<EyeOutlined class="icon-center" />&nbsp;{{ data.videoCount }}</span>
-        <span>&nbsp;<MessageOutlined class="icon-center" />&nbsp;{{ data.commonCount }}</span>
+        <span>文章发布于: {{ formatDateToChinese(data.createTime) }}</span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<EyeOutlined class="icon-center" />&nbsp;{{ data.videoCount }}</span>
+        <!-- <span>&nbsp;<MessageOutlined class="icon-center" />&nbsp;{{ data.commonCount }}</span> -->
       </div>
     </div>
     <div id="output" v-html="output"></div>
-    <Common :blogId="data.id" />
+    <div>放置标签</div>
   </div>
 </template>
 
@@ -22,7 +21,6 @@ import { EyeOutlined, MessageOutlined } from '@ant-design/icons-vue'
 import { ref, watch, getCurrentInstance, onMounted, reactive, computed, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
 import { list, getBlog } from '@/api/blog'
-import Common from '../common/index.vue'
 
 const { proxy } = getCurrentInstance()
 const route = useRoute()
@@ -92,7 +90,7 @@ function getPoint() {
       list1[i] = [h2List[i]]
       // if()
 
-      const element = array[i]
+      // const element = array[i]
     }
   })
 
@@ -121,69 +119,4 @@ function formatDateToChinese(dateTimeString) {
   return `${year}-${month}-${date} ${hour}:${minute}:${second}`
 }
 </script>
-<style>
-.item {
-  /* margin-top: 3%; */
-  min-width: 400px;
-  width: 100%;
-  font-size: 16px;
-  color: #000;
-  background: transparent;
-}
-.title {
-  text-align: center; /* 水平居中 */
-  line-height: 60px;
-  font-size: 40px;
-  margin-top: 20px;
-}
-.describe {
-  font-size: 16px;
-  color: #1234;
-  text-align: center;
-}
-.titleCard {
-  margin: 30px 0 50px 0;
-  background: #8b8989;
-  height: 180px;
-  color: #1234;
-}
-.icon-center {
-  vertical-align: middle; /* 垂直居中 */
-  text-align: center; /* 水平居中，但通常与 flexbox 或 grid 结合使用效果更佳 */
-}
-h1 {
-  font-size: 30px !important;
-  color: rgb(50, 50, 93);
-  font-weight: 800 !important;
-  padding: 20px;
-}
-h2 {
-  font-size: 30px !important;
-  color: rgb(50, 50, 93);
-  font-weight: 800 !important;
-  padding: 20px;
-}
-h3 {
-  font-size: 30px !important;
-  color: rgb(50, 50, 93);
-  font-weight: 800 !important;
-  padding: 20px;
-}
-p {
-  font-size: 20px;
-  line-height: 2;
-  text-indent: 20px;
-}
-li {
-  font-size: 18px;
-  line-height: 2;
-  text-indent: 0px !important;
-  list-style-type: disc;
-  margin-left: 50px;
-}
-ol {
-  font-size: 18px;
-  line-height: 2;
-  text-indent: 20px;
-}
-</style>
+<style src="./index.scss"></style>

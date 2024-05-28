@@ -3,11 +3,13 @@
   line-height: 60px;
   width: 100%;
   position: fixed;
-  font-size: 22px;
+  font-size: 18px;
+  z-index: 10000;
+  color: #fff;
 }
-.headerStyle:hover {
-  background-color: #fbfbfb;
-}
+// .headerStyle:hover {
+//   background-color: #fbfbfb;
+// }
 
 .name {
   margin-left: 5%;

@@ -1,47 +1,65 @@
 <!--页面-->
 <template>
   <div class="blog">
-    <div class="item flex flex-col rounded" v-for="item in blogList">
-      <div class="image" @click="checkBlog(item)">
-        <img :src="item.image" alt="Your Image" />
-      </div>
-      <div class="text">
-        <p @click="checkBlog(item)">&nbsp;&nbsp;{{ item.title }}</p>
-      </div>
-      <div class="info flex items-center">
-        <span>{{ item.createTime }}</span>
+    <div v-if="blogList.length > 0">
+      <div class="flex flex-col" v-for="(item, index) in blogList" :key="index">
+        <div v-if="index % 2 == 0" class="flex">
+          <div class="items rounded">
+            <div class="image" @click="checkBlog(item)" v-if="item.image">
+              <img :src="item.image" alt="Your Image" />
+            </div>
+            <div class="image" @click="checkBlog(item)" v-if="!item.image">
+              <div class="text">{{ item.text }}</div>
+            </div>
+            <div class="textTitle">
+              <p @click="checkBlog(item)">&nbsp;&nbsp;{{ item.title }}</p>
+            </div>
+            <div class="info flex items-center">
+              <span>{{ item.createTime }}</span>
+            </div>
+          </div>
+          <div v-if="index + 1 < blogList.length" class="items rounded" style="margin-left: 10px">
+            <div class="image" @click="checkBlog(blogList[index + 1])" v-if="blogList[index + 1].image">
+              <img :src="blogList[index + 1].image" alt="Your Image" />
+            </div>
+            <div class="image" @click="checkBlog(blogList[index + 1])" v-if="!blogList[index + 1].image">
+              <div class="text">{{ blogList[index + 1].text }}</div>
+            </div>
+
+            <div class="textTitle">
+              <p @click="checkBlog(blogList[index + 1])">&nbsp;&nbsp;{{ blogList[index + 1].title }}</p>
+            </div>
+            <div class="info flex items-center">
+              <span>{{ blogList[index + 1].createTime }}</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <!-- <div class="flex justify-center items-center" style="margin-top: 90vh">
-      <a-pagination v-model:current="queryParams.pageNum" :total="total" />
-      <span>共: {{ total }}条</span>
-    </div> -->
   </div>
 </template>
 
 <script setup>
-// import Card from './card/index.vue'
 import { list } from '../../../api/blog'
-import { onMounted, ref, toRefs, reactive, getCurrentInstance } from 'vue'
+import { onMounted, ref, toRefs, reactive, getCurrentInstance, nextTick } from 'vue'
 const { proxy } = getCurrentInstance()
 import useBlogStore from '../../../stores/blog'
 const blogStore = useBlogStore()
+const blogList = ref([])
 
-const total = ref(0)
 const data = reactive({
   queryParams: {
     pageNum: 1,
-    pageSize: 12,
+    pageSize: 10,
     timeRange: ''
   }
 })
 const { queryParams } = toRefs(data)
-const blogList = ref([])
 
 onMounted(async () => {
   const res = await list(queryParams)
-  blogList.value = Object.assign({}, res.rows)
-  total.value = res.total
+  console.log(res.rows)
+  blogList.value = res.rows || []
 })
 
 const current = ref(2)
