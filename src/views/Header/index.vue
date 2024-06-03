@@ -25,20 +25,20 @@ const list = ['前端', '后端', '运维', '生活']
 const show = ref(true)
 onMounted(() => {
   nextTick(() => {
-    window.addEventListener('scroll', function () {
-      const scrollTop = document.documentElement.scrollTop
-      if (scrollTop < 500) {
-        document.getElementById('headerStyle').style.backgroundColor = 'transparent'
-        document.getElementById('headerStyle').style.color = '#fff'
-        show.value = true
-      } else if (scrollTop < 1500) {
-        document.getElementById('headerStyle').style.backgroundColor = 'white'
-        document.getElementById('headerStyle').style.color = '#000'
-        show.value = true
-      } else {
-        show.value = false
-      }
-    })
+    // window.addEventListener('scroll', function () {
+    //   const scrollTop = document.documentElement.scrollTop
+    //   if (scrollTop < 500) {
+    //     document.getElementById('headerStyle').style.backgroundColor = '#181818'
+    //     document.getElementById('headerStyle').style.color = '#fff'
+    //     show.value = true
+    //   } else if (scrollTop < 1500) {
+    //     document.getElementById('headerStyle').style.backgroundColor = '#181818'
+    //     document.getElementById('headerStyle').style.color = '#000'
+    //     show.value = true
+    //   } else {
+    //     show.value = false
+    //   }
+    // })
   })
 })
 

@@ -1,11 +1,13 @@
 .headerStyle {
-  height: 60px;
-  line-height: 60px;
+  height: 40px;
+  line-height: 40px;
   width: 100%;
   position: fixed;
-  font-size: 18px;
+  font-size: 14px;
   z-index: 10000;
-  color: #fff;
+  color: #bab2b2;
+  background: #181818;
+  // background-color: #181818;
 }
 // .headerStyle:hover {
 //   background-color: #fbfbfb;
