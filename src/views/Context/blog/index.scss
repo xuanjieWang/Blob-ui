@@ -1,69 +1,101 @@
 .blog {
+  min-height: 100vh;
+  width: 100%;
+  max-width: 1920px;
+  // color: aliceblue;
   margin: 5% auto;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  // height: 100%;
-  min-height: 100vh;
+  flex-wrap: wrap;
 }
+
+.blogPage {
+  height: 300px;
+  width: 100%;
+  margin-top: 56px;
+  padding: 20px;
+}
+
+@media (max-width: 700px) {
+  .blogPage {
+    width: 100%;
+  }
+}
+
 .p {
-  color: aliceblue;
-}
-.items {
-  margin-top: 20px;
-  width: 30vw;
-  background: #ddd;
-}
-.image {
-  width: 100%;
-  transition: transform 0.3s;
-  cursor: pointer;
-  overflow: hidden; /* 隐藏超出部分 */
-  position: relative;
-}
-img {
-  width: 100%; /* 图片宽度占满容器 */
-  height: 20vh; /* 图片高度占满容器 */
-  transition: transform 0.3s; /* 添加过渡效果 */
-  /* 默认缩放效果 */
-  transform-origin: 0 0 0 0;
-  transform: scale(1);
+  // color: aliceblue;
 }
 
-img:hover {
-  transform: scale(1.05); /* 鼠标悬停时放大图片 */
-}
-// 标题
-.textTitle {
-  padding: 2px;
-  width: 100%;
-  height: 60px;
-  font-size: 14px;
-}
+// .image {
+//   width: 100%;
+//   transition: transform 0.3s;
+//   cursor: pointer;
+//   overflow: hidden; /* 隐藏超出部分 */
+//   position: relative;
+// }
+// img {
+//   width: 100%; /* 图片宽度占满容器 */
+//   height: 20vh; /* 图片高度占满容器 */
+//   transition: transform 0.3s; /* 添加过渡效果 */
+//   /* 默认缩放效果 */
+//   transform-origin: 0 0 0 0;
+//   transform: scale(1);
+// }
 
-.info {
-  height: 30px;
-  line-height: 50px;
-  display: flex;
-  justify-content: space-between;
-}
+// img:hover {
+//   transform: scale(1.05); /* 鼠标悬停时放大图片 */
+// }
+// // 标题
+// .textTitle {
+//   padding: 2px;
+//   width: 100%;
+//   height: 60px;
+//   font-size: 14px;
+// }
 
-p {
-  display: -webkit-box; /* 使用flexbox布局 */
-  -webkit-box-orient: vertical; /* 垂直排列 */
-  -webkit-line-clamp: 2; /* 显示两行 */
-  overflow: hidden; /* 隐藏溢出内容 */
-  text-overflow: ellipsis; /* 显示省略号 */
-  cursor: pointer;
-}
-.text {
-  height: 20vh;
-  font-size: 14px;
-  text-indent: 100;
-  margin-left: 20px;
-  width: 100%;
-  display: -webkit-box; /* 使用flexbox布局 */
-  overflow: hidden; /* 隐藏溢出内容 */
-  text-overflow: ellipsis; /* 显示省略号 */
-  cursor: pointer;
-}
+// .info {
+//   height: 30px;
+//   line-height: 50px;
+//   display: flex;
+//   justify-content: space-between;
+// }
+
+// p {
+//   display: -webkit-box; /* 使用flexbox布局 */
+//   -webkit-box-orient: vertical; /* 垂直排列 */
+//   -webkit-line-clamp: 2; /* 显示两行 */
+//   overflow: hidden; /* 隐藏溢出内容 */
+//   text-overflow: ellipsis; /* 显示省略号 */
+//   cursor: pointer;
+// }
+// .text {
+//   height: 20vh;
+//   font-size: 14px;
+//   text-indent: 100;
+//   margin-left: 20px;
+//   width: 100%;
+//   display: -webkit-box; /* 使用flexbox布局 */
+//   overflow: hidden; /* 隐藏溢出内容 */
+//   text-overflow: ellipsis; /* 显示省略号 */
+//   cursor: pointer;
+// }
+
+// .items {
+//   margin-top: 20px;
+//   // width: 30vw
+//   background: #ddd;
+// }
+// @media screen and (max-width: 768px) {
+//   .item {
+//     // margin-top: 20px;
+//     width: 80vw;
+//     background: red;
+//   }
+// }
+
+// @media screen and (max-width: 1500) {
+//   .items {
+//     margin-top: 20px;
+//     width: 30vw;
+//     background: #ddd;
+//   }
+// }

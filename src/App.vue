@@ -19,7 +19,7 @@ import Footer from './views/Footer/index.vue'
   position: relative;
   overflow: auto;
   // background-image: url('./assets/img/bj.png');
-  background-color: #000;
+  background-color: #ffff;
   background-size: 100% 100%;
   background-repeat: no-repeat;
   background-attachment: fixed;

@@ -13,7 +13,7 @@ const props = defineProps({
 </script>
 <style lang="scss" scoped>
 .button {
-  border-radius: 8px;
+  // border-radius: 8px;
   min-width: 80px;
   height: 40px;
   line-height: 40px;
@@ -22,7 +22,6 @@ const props = defineProps({
   text-align: center;
 }
 .button:hover {
-  background: #4a7aa7;
-  color: #fff;
+  border-bottom: 2px solid #000;
 }
 </style>

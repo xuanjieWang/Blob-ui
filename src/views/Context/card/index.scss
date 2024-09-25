@@ -65,3 +65,23 @@ ol {
   line-height: 2;
   text-indent: 20px;
 }
+
+// /* 当屏幕宽度小于等于 768px 时 */
+
+// @media screen and (max-width: 768px) {
+//   .item {
+//     width: 100%;
+//     font-size: 16px;
+//     color: #000;
+//     background: #fff;
+//     opacity: 0.6;
+//     margin: 5% auto;
+//     // margin-left: 10%;
+//     display: flex;
+//     flex-direction: column;
+//     min-height: 100vh;
+//   }
+// }
+
+// @media screen and (max-width: 1500) {
+// }

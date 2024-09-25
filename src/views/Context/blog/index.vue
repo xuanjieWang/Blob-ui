@@ -1,7 +1,12 @@
 <!--页面-->
 <template>
   <div class="blog">
-    <div v-if="blogList.length > 0">
+    <!-- <div class="blogList" > -->
+    <div class="blogPage" v-for="(item, index) in blogList" :key="index">
+      <div>{{ item.text }}</div>
+    </div>
+    <!-- </div> -->
+    <!-- <div v-if="blogList.length > 0">
       <div class="flex flex-col" v-for="(item, index) in blogList" :key="index">
         <div v-if="index % 2 == 0" class="flex">
           <div class="items rounded">
@@ -35,7 +40,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 

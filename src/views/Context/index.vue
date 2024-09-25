@@ -2,11 +2,11 @@
 <template>
   <div class="main">
     <div class="info">
-      <p>你好, 我是</p>
+      <!-- <p>你好, 我是</p> -->
       <p>王玄杰</p>
-      <p>一名全栈开发工程师</p>
+      <!-- <p>一名全栈开发工程师</p>
       <p>喜欢<span class="java">Java</span>、<span class="Python">Python</span>、<span class="Go">Go</span><span>&nbsp;和&nbsp;</span><span class="Vue">Vue</span>、<span class="React">React</span></p>
-      <p>我在这个网站记录我的成长，努力 💪 成为一个更好的程序员</p>
+      <p>我在这个网站记录我的成长，努力 💪 成为一个更好的程序员</p> -->
     </div>
   </div>
 </template>

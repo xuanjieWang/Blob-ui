@@ -1,23 +1,38 @@
 .headerStyle {
-  height: 40px;
-  line-height: 40px;
+  height: 55.9754px;
+  line-height: 55.9754px;
   width: 100%;
   position: fixed;
-  font-size: 14px;
+  font-size: 20px;
   z-index: 10000;
-  color: #bab2b2;
-  background: #181818;
-  // background-color: #181818;
+  color: #000;
+  background: #ffffff;
+  padding: 0px;
+  margin-top: 0px;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+  // 下划线
+  border-bottom: 1px solid #f2f2f2;
 }
-// .headerStyle:hover {
-//   background-color: #fbfbfb;
-// }
-
 .name {
   margin-left: 5%;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.name:hover {
+  color: blue;
 }
 
 .items {
   margin-left: 35%;
   width: 40%;
+  cursor: pointer;
+}
+
+.items:hover {
+  color: blue;
+}
+.items > TextButton {
+  font-weight: 600;
 }
