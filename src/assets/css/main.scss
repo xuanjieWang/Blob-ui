@@ -1,46 +1,28 @@
 body {
-  // transition:
-  // color 0.5s,
-  // background-color 0.5s;
-  // font-family:
-  //   Inter,
-  //   -apple-system,
-  //   BlinkMacSystemFont,
-  //   'Segoe UI',
-  //   Roboto,
-  //   Oxygen,
-  //   Ubuntu,
-  //   Cantarell,
-  //   'Fira Sans',
-  //   'Droid Sans',
-  //   'Helvetica Neue',
-  //   sans-serif;
-  // font-size: 18px;
-  // text-rendering: optimizeLegibility;
-  // -webkit-font-smoothing: antialiased;
-  // -moz-osx-font-smoothing: grayscale;
-  // z-index: 10000;
+  transition:
+    color 0.5s,
+    background-color 0.5s;
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
+    sans-serif;
+  font-size: 18px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  z-index: 10000;
   color: #000;
 }
 
-#app {
-}
-
-.card {
-  background: linear-gradient(to bottom right, #ffcccc, #cc99ff); /* 设置从左上到右下的渐变色 */
-  width: 90%;
-  min-width: 240px;
-  height: 150px;
-  font-weight: 600;
-  font-size: 24px;
-  color: #fff;
-  margin-left: 5%;
-  padding: 20px; /* 可选：增加内边距以使内容不紧贴边框 */
-}
-
-html {
-  font-size: 30px;
-}
 @media (max-width: 1400px) {
   html {
     font-size: 25px;

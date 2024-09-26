@@ -6,13 +6,21 @@
   font-size: 20px;
   z-index: 10000;
   color: #000;
-  background: #ffffff;
+  background: hsl(0, 0%, 95%);
   padding: 0px;
   margin-top: 0px;
   padding-bottom: 0px;
   margin-bottom: 0px;
   // 下划线
   border-bottom: 1px solid #f2f2f2;
+}
+@keyframes animate {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(unquote('-#($sky-size)px'));
+  }
 }
 .name {
   margin-left: 5%;
