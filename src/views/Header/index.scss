@@ -1,22 +1,7 @@
 .headerStyle {
-  // height: 55.9754px;
-  // line-height: 55.9754px;
-  // width: 100%;
-  // position: fixed;
-  // font-size: 20px;
-  // z-index: 10000;
-  // color: #000;
-  // background: hsl(0, 0%, 95%);
-  // padding: 0px;
-  // margin-top: 0px;
-  // padding-bottom: 0px;
-  // margin-bottom: 0px;
-  // // 下划线
-  // border-bottom: 1px solid #f2f2f2;
-
   z-index: 999;
   display: flex;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -24,6 +9,7 @@
   padding: 15px 200px;
   transition: 0.5s ease;
   align-items: center;
+  color: #fff;
 }
 @keyframes animate {
   from {

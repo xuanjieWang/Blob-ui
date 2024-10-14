@@ -48,11 +48,11 @@
   min-height: 100vh;
   margin-left: 20%;
   font-size: 40px;
-  // color: #fff;
+  color: #fff;
 }
 .title {
   font-size: 35px;
-  // color: #fff;
+  color: #fff;
   margin: 0px 0px 5px 0px;
 }
 p {

@@ -5,7 +5,7 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  background-color: #2696e9;
+  // background-color: #2696e9;
 }
 
 .home video {
@@ -24,48 +24,9 @@
   position: absolute;
   top: 0;
   left: 0;
-  background: rgba(3, 96, 251, 0.3);
+  // background: rgba(3, 96, 251, 0.3);
   width: 100%;
   height: 100%;
-}
-
-.home .content {
-  z-index: 888;
-  color: #fff;
-  width: 70%;
-  margin-top: 50px;
-  display: none;
-}
-
-.home .content.active {
-  display: block;
-}
-
-.home .content h1 {
-  font-size: 4rem;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 5px;
-  line-height: 75px;
-  margin-bottom: 40px;
-}
-.home .content h1 span {
-  font-size: 1.2em;
-  font-weight: 600;
-}
-
-.home .content p {
-  margin-bottom: 65px;
-}
-
-.home .content a {
-  background: #fff;
-  padding: 15px 35px;
-  color: #1680ac;
-  font-size: 1.1em;
-  font-weight: 500;
-  text-decoration: none;
-  border-radius: 2px;
 }
 .home .media-icons {
   z-index: 888;
@@ -168,7 +129,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transform: translateY(80px);
+  // transform: translateY(80px);
   margin-bottom: 12px;
   gap: 20px;
 }
@@ -192,5 +153,63 @@
 }
 
 .mediaPage {
+  position: relative;
+  z-index: 10000;
   height: 100vh;
+  color: #fff;
+}
+
+.article {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  position: relative;
+  top: 28%;
+  width: 100%;
+  color: #fff;
+}
+.article p:first-of-type {
+  font-size: 1.6rem;
+}
+.article p:nth-of-type(2) {
+  font-size: 2.8rem;
+  color: #25c8ef;
+  font-weight: 700;
+}
+.article p:nth-of-type(3) {
+  font-size: 1.6rem;
+  color: #fff;
+}
+.article p:nth-of-type(4) {
+  font-size: 1.4rem;
+  color: #fff;
+}
+.article p:nth-of-type(5) {
+  font-size: 1rem;
+  color: #fff;
+}
+.java {
+  background-image: linear-gradient(to right, #cc6600, #ffaa33);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.Python {
+  background-image: linear-gradient(to right, #00aa00, #33ff33);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.Go {
+  background-image: linear-gradient(to right, #0000aa, #0000ff);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.Vue {
+  background-image: linear-gradient(to right, #00ff99, #77ffcc);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.React {
+  background-image: linear-gradient(to right, #5555ff, #5555ff);
+  -webkit-background-clip: text;
+  color: transparent;
 }
