@@ -157,6 +157,7 @@
   z-index: 10000;
   height: 100vh;
   color: #fff;
+  margin: 2% 15% 0% 15%;
 }
 
 .article {
@@ -167,6 +168,7 @@
   top: 28%;
   width: 100%;
   color: #fff;
+  margin: 5% 15% 0% 15%;
 }
 .article p:first-of-type {
   font-size: 1.6rem;
@@ -212,4 +214,19 @@
   background-image: linear-gradient(to right, #5555ff, #5555ff);
   -webkit-background-clip: text;
   color: transparent;
+}
+
+.icon {
+  width: 150px;
+  border-radius: 50%; /* 使图片变为圆形 */
+  animation: rotate 10s linear infinite; /* 应用旋转动画 */
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

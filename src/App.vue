@@ -17,7 +17,9 @@ import Footer from './views/Footer/index.vue'
 <style lang="scss" scoped>
 .body {
   height: 100%;
-  background: radial-gradient(ellipse at bottom, #1b2745 0%, #090a0f 100%);
+  // background: radial-gradient(ellipse at bottom, #1b2745 0%, #090a0f 100%);
+  background: #000;
   overflow: hidden;
+  color: #fff;
 }
 </style>

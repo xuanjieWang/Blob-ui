@@ -15,6 +15,7 @@ import './assets/css/tailwind.css'
 
 // 全局组件
 import TextButton from '../src/components/TextButton/index.vue'
+import MarkdownRenderer from './components/MarkdownRenderer/index.vue'
 
 // 导入语言文件
 import en from './assets/i18n/en.json'
@@ -31,6 +32,7 @@ const i18n = createI18n({
 const app = createApp(App)
 
 app.component('TextButton', TextButton)
+app.component('MarkdownRenderer', MarkdownRenderer)
 
 app.use(router)
 app.use(Antd)

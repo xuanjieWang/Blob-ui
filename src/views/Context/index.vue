@@ -13,24 +13,6 @@
         </p>
         <p>我在这个网站记录我的成长，努力 💪 成为一个更好的程序员</p>
       </div>
-      <!-- 
-      <div class="content active">
-        <h1>美丽大海<br /><span>最美丽的大海</span></h1>
-        <p>
-          If our time is usefully employed, it will either turn out some useful and important piece of work which will fetch its price in the market, or it will add to our experience and increase our
-          capacities so as to enable us to earn money when the proper opportunity comes. Let those, who think nothing of wasting time, remember this.
-        </p>
-        <a href="#">欢迎来到我的博客</a>
-      </div>
-
-      <div class="content">
-        <h1>美丽大海<br /><span>最美丽的大海</span></h1>
-        <p>
-          如果我们的时间得到有效利用，它要么会产出一些有用和重要的工作，在市场上获得价格，要么会增加我们的经验，提高我们的能力，
-          以便在适当的机会到来时让我们赚钱。让那些毫不在意浪费时间的人记住这一点。
-        </p>
-        <a href="#">欢迎来到我的博客</a>
-      </div> -->
 
       <div class="slider-navigation">
         <div class="nav-btn active"></div>
@@ -38,8 +20,12 @@
       </div>
     </div>
     <div>
-      <div class="mediaPage">
-        <span>下面是博客首页</span>
+      <div class="mediaPage flex flex-col">
+        <img src="@/assets/img/icon.jpg" alt="Rotating Image" class="icon" />
+        <div>头像</div>
+        <div>文章</div>
+        <div>生活</div>
+        <div>链接</div>
       </div>
     </div>
   </div>
@@ -52,7 +38,6 @@ const videoChangeTimer = ref(null)
 onMounted(() => {
   const btns = document.querySelectorAll('.nav-btn')
   const slides = document.querySelectorAll('.video-slide')
-  const contents = document.querySelectorAll('.content')
 
   var sliderNav = function (manual) {
     btns.forEach((btn) => {
@@ -63,13 +48,8 @@ onMounted(() => {
       slide.classList.remove('active')
     })
 
-    contents.forEach((content) => {
-      content.classList.remove('active')
-    })
-
     btns[manual].classList.add('active')
     slides[manual].classList.add('active')
-    contents[manual].classList.add('active')
   }
 
   btns.forEach((btn, i) => {

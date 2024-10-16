@@ -13,7 +13,7 @@ const props = defineProps({
 </script>
 <style lang="scss" scoped>
 .button {
-  min-width: 180px;
+  min-width: 80px;
   height: 40px;
   line-height: 40px;
   margin: 0px 20px 0px 20px;

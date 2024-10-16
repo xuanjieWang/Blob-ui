@@ -5,11 +5,12 @@
   top: 0;
   left: 0;
   width: 100%;
-  justify-content: space-between;
-  padding: 15px 200px;
-  transition: 0.5s ease;
-  align-items: center;
   color: #fff;
+  opacity: 0.7;
+  background: #000;
+  line-height: 55px;
+  height: 55px;
+  width: 100%;
 }
 @keyframes animate {
   from {
@@ -25,19 +26,19 @@
   cursor: pointer;
 }
 
-.name:hover {
-  color: blue;
-}
+// .name:hover {
+//   color: blue;
+// }
 
 .items {
-  margin-left: 35%;
-  width: 40%;
+  // margin-left: 35%;
+  // width: 40%;
   cursor: pointer;
 }
 
-.items:hover {
-  color: blue;
-}
+// .items:hover {
+//   color: blue;
+// }
 .items > TextButton {
   font-weight: 600;
 }
