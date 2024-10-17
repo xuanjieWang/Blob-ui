@@ -1,20 +1,20 @@
 .item {
-  width: 80%;
+  position: relative;
+  // width: 25%;
+  width: 250px;
+  height: 160px;
   font-size: 16px;
-  color: #000;
-  // background: transparent;
+  color: #fff;
   background: #fff;
-  opacity: 0.6;
-  margin: 5% auto;
-  margin-left: 10%;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  // opacity: 0.6;
+  // display: flex;
+  // flex-direction: column;
+  z-index: 10000;
 }
 .title {
-  text-align: center; /* 水平居中 */
+  text-align: left; /* 水平居中 */
   font-size: 50px;
-  padding: 10px;
+  // padding: 10px;
 }
 .describe {
   font-size: 16px;
@@ -22,7 +22,7 @@
   text-align: center;
 }
 .titleCard {
-  margin: 10px 0 20px 0;
+  // margin: 10px 0 20px 0;
   height: 100px;
   width: 100%;
 }
@@ -30,58 +30,3 @@
   vertical-align: middle; /* 垂直居中 */
   text-align: center; /* 水平居中，但通常与 flexbox 或 grid 结合使用效果更佳 */
 }
-h1 {
-  font-size: 30px !important;
-  color: rgb(50, 50, 93);
-  font-weight: 800 !important;
-  padding: 20px;
-}
-h2 {
-  font-size: 30px !important;
-  color: rgb(50, 50, 93);
-  font-weight: 800 !important;
-  padding: 20px;
-}
-h3 {
-  font-size: 30px !important;
-  color: rgb(50, 50, 93);
-  font-weight: 800 !important;
-  padding: 20px;
-}
-p {
-  font-size: 20px;
-  line-height: 2;
-  text-indent: 20px;
-}
-li {
-  font-size: 18px;
-  line-height: 2;
-  text-indent: 0px !important;
-  list-style-type: disc;
-  margin-left: 50px;
-}
-ol {
-  font-size: 18px;
-  line-height: 2;
-  text-indent: 20px;
-}
-
-// /* 当屏幕宽度小于等于 768px 时 */
-
-// @media screen and (max-width: 768px) {
-//   .item {
-//     width: 100%;
-//     font-size: 16px;
-//     color: #000;
-//     background: #fff;
-//     opacity: 0.6;
-//     margin: 5% auto;
-//     // margin-left: 10%;
-//     display: flex;
-//     flex-direction: column;
-//     min-height: 100vh;
-//   }
-// }
-
-// @media screen and (max-width: 1500) {
-// }

@@ -1,11 +1,11 @@
 .home {
   position: relative;
-  width: 100%;
   min-height: 100vh;
+  width: 100%;
   display: flex;
-  justify-content: center;
   flex-direction: column;
-  // background-color: #2696e9;
+  justify-content: center;
+  align-items: center;
 }
 
 .home video {
@@ -14,7 +14,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   object-fit: cover;
 }
 
@@ -24,9 +24,8 @@
   position: absolute;
   top: 0;
   left: 0;
-  // background: rgba(3, 96, 251, 0.3);
   width: 100%;
-  height: 100%;
+  height: 100vh;
 }
 .home .media-icons {
   z-index: 888;
@@ -124,12 +123,12 @@
 }
 
 .slider-navigation {
-  z-index: 888;
+  z-index: 88888888;
+  margin-top: 60vh;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  // transform: translateY(80px);
   margin-bottom: 12px;
   gap: 20px;
 }
@@ -155,20 +154,39 @@
 .mediaPage {
   position: relative;
   z-index: 10000;
-  height: 100vh;
+  // height: 100%;
+  width: 75%;
+  // min-height: 100vh;
   color: #fff;
-  margin: 2% 15% 0% 15%;
+  margin-top: 3%;
 }
 
+@media screen and (max-width: 600px) {
+  .mediaPage {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  .mediaPage {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .mediaPage {
+    width: 50%;
+  }
+}
 .article {
+  position: relative;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  position: relative;
-  top: 28%;
   width: 100%;
+  margin-top: 15vh;
   color: #fff;
-  margin: 5% 15% 0% 15%;
+  // margin: 5% 15% 0% 15%;
 }
 .article p:first-of-type {
   font-size: 1.6rem;
@@ -217,16 +235,24 @@
 }
 
 .icon {
-  width: 150px;
+  width: 180px;
   border-radius: 50%; /* 使图片变为圆形 */
-  animation: rotate 10s linear infinite; /* 应用旋转动画 */
+  // animation: rotate 10s linear infinite; /* 应用旋转动画 */
 }
 
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+// @keyframes rotate {
+//   from {
+//     transform: rotate(0deg);
+//   }
+//   to {
+//     transform: rotate(360deg);
+//   }
+// }
+.random-quote {
+  margin-top: 20px;
+  padding: 10px 10px 0px 0px;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.75);
 }
+
+/* 设置选中文本的样式 */

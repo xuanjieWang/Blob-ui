@@ -1,16 +1,13 @@
 <!--页面-->
 <template>
   <div class="item flex flex-col">
-    <div class="flex flex-col rounded titleCard">
+    <!-- <div class="flex flex-col rounded titleCard">
       <div class="title">{{ data.title }}</div>
       <div class="describe">
-        <span>文章发布于: {{ formatDateToChinese(data.createTime) }}</span>
+        <span>{{ formatDateToChinese(data.createTime) }}</span>
         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<EyeOutlined class="icon-center" />&nbsp;{{ data.videoCount }}</span>
-        <!-- <span>&nbsp;<MessageOutlined class="icon-center" />&nbsp;{{ data.commonCount }}</span> -->
       </div>
-    </div>
-    <MarkdownRenderer />
-    <div>放置标签</div>
+    </div> -->
   </div>
 </template>
 
@@ -26,5 +23,16 @@ const route = useRoute()
 const data = ref({})
 
 onMounted(async () => {})
+
+function formatDateToChinese(dateTimeString) {
+  const dateTime = new Date(dateTimeString)
+  const year = dateTime.getFullYear()
+  const month = (dateTime.getMonth() + 1).toString().padStart(2, '0')
+  const date = dateTime.getDate().toString().padStart(2, '0')
+  const hour = dateTime.getHours().toString().padStart(2, '0')
+  const minute = dateTime.getMinutes().toString().padStart(2, '0')
+  const second = dateTime.getSeconds().toString().padStart(2, '0')
+  return `${year}-${month}-${date} ${hour}:${minute}:${second}`
+}
 </script>
 <style src="./index.scss"></style>

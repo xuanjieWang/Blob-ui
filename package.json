@@ -10,6 +10,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@ant-design/icons-svg": "^4.4.2",
     "@ant-design/icons-vue": "^7.0.1",
     "@vue/eslint-config-standard": "^8.0.1",
     "@vueuse/core": "9.5.0",

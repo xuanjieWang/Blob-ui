@@ -1,9 +1,11 @@
 <!--页面-->
 <template>
-  <div>
-    <div class="home">
+  <!-- 主体内容 -->
+  <div class="home flex flex-col justify-center items-center">
+    <div style="min-height: 100vh">
       <video class="video-slide active" src="../../assets/home.mp4" autoplay muted loop></video>
       <video class="video-slide" src="../../assets/home2.mp4" autoplay muted loop></video>
+
       <div class="article">
         <p>你好, 我是</p>
         <p>王玄杰</p>
@@ -19,13 +21,22 @@
         <div class="nav-btn"></div>
       </div>
     </div>
-    <div>
-      <div class="mediaPage flex flex-col">
-        <img src="@/assets/img/icon.jpg" alt="Rotating Image" class="icon" />
-        <div>头像</div>
-        <div>文章</div>
-        <div>生活</div>
-        <div>链接</div>
+
+    <div class="mediaPage flex flex-col mt-1 p-5 justify-center">
+      <div class="flex gap-10 mr-20">
+        <img src="@/assets/img/icon.jpg" alt="Rotating Image" class="icon mr-10" />
+        <div class="flex flex-col gap-8">
+          <span style="font-size: 30px">王玄杰</span>
+          <span>缘，妙不可言</span>
+          <span>QQ,WX,邮箱</span>
+        </div>
+      </div>
+      <p class="random-quote">{{ randomQuote }}</p>
+      <div>
+        <Article />
+      </div>
+      <div>
+        <Life />
       </div>
     </div>
   </div>
@@ -33,8 +44,13 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import quotesList from './quotes.js'
+import Article from './article/index.vue'
+import Life from './life/index.vue'
+
 const count = ref(0)
 const videoChangeTimer = ref(null)
+const randomQuote = ref('')
 onMounted(() => {
   const btns = document.querySelectorAll('.nav-btn')
   const slides = document.querySelectorAll('.video-slide')
@@ -62,6 +78,8 @@ onMounted(() => {
     if (count.value >= slides.length) count.value = 0
     sliderNav(count.value)
   }, 3500)
+
+  randomQuote.value = quotesList[Math.floor(Math.random() * quotesList.length)]
 })
 
 onUnmounted(() => {

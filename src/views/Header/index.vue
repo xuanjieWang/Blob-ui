@@ -1,32 +1,48 @@
 <!--页面-->
 <template>
-  <div id="headerStyle" class="headerStyle flex items-center justify-between" v-show="show">
-    <div class="name" @click="go('/index')">
-      <p>{{ $t('name') }}</p>
-    </div>
-    <div class="items flex items-center justify-around">
-      <TextButton text="博客" @click="go('/blog')"></TextButton>
-      <TextButton text="添加博客" @click="go('/addBlog')"></TextButton>
-      <TextButton text="下载抖音视频" @click="go('/dyVideo')"></TextButton>
-      <TextButton text="留言"></TextButton>
-      <TextButton text="关于" @click="go('/aboutMe')"></TextButton>
+  <div class="py-4 headerStyle">
+    <div class="flex flex-col md:flex-row justify-between items-center">
+      <div class="text-2xl font-bold ml-5" @click="go('/index')">
+        <p>{{ $t('name') }}</p>
+      </div>
+      <nav>
+        <ul class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
+          <li>
+            <TextButton text="博客" @click="go('/blog')"></TextButton>
+          </li>
+          <li>
+            <TextButton text="添加博客" @click="go('/addBlog')"></TextButton>
+          </li>
+          <li>
+            <TextButton text="下载抖音视频" @click="go('/dyVideo')"></TextButton>
+          </li>
+          <li>
+            <TextButton text="留言"></TextButton>
+          </li>
+          <li>
+            <TextButton text="关于" @click="go('/aboutMe')"></TextButton>
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
 </template>
 
 <script setup>
-import { getCurrentInstance, nextTick, onMounted, ref } from 'vue'
+import { getCurrentInstance } from 'vue'
 const { proxy } = getCurrentInstance()
-
-const list = ['前端', '后端', '运维', '生活']
-
-const show = ref(true)
-onMounted(() => {
-  nextTick(() => {})
-})
 
 function go(path) {
   proxy.$router.push(path) // 编程式导航
 }
 </script>
-<style scoped src="./index.scss"></style>
+<style lang="scss">
+.headerStyle {
+  z-index: 999;
+  position: fixed;
+  width: 100%;
+  color: #fff;
+  opacity: 0.7;
+  background: #000;
+}
+</style>
