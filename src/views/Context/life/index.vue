@@ -1,28 +1,23 @@
 <!--页面-->
 <template>
-  <div class="page flex flex-col">
+  <div class="p-3 mt-5 flex flex-col">
     <div class="flex justify-between items-center">
-      <div class="articleItem flex gap-1 items-center">
+      <div class="articleItem w-[160px] h-[40px] shadow-md rounded-lg flex gap-3 items-center">
         <HighlightOutlined :style="{ fontSize: '30px', color: '#08c' }" class="flex ml-4" />
         <p>生活</p>
       </div>
-      <div class="articleChange flex gap-1 items-center">
+      <div class="articleItem shadow-md rounded-lg flex gap-2 items-center">
         <RightOutlined :style="{ fontSize: '30px', color: '#08c' }" class="flex ml-4" />
       </div>
     </div>
-    <div class="list flex">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div class="bg-white rounded-lg shadow-md p-4">
-          <h2 class="text-xl font-bold">特性一</h2>
-          <p>这是特性一的描述。</p>
-        </div>
-        <div class="bg-white rounded-lg shadow-md p-4">
-          <h2 class="text-xl font-bold">特性二</h2>
-          <p>这是特性二的描述。</p>
-        </div>
-        <div class="bg-white rounded-lg shadow-md p-4">
-          <h2 class="text-xl font-bold">特性三</h2>
-          <p>这是特性三的描述。</p>
+    <!---下面部分的文章显示-->
+    <div class="list flex justify-center items-center mt-3">
+      <div class="grid lg:grid-cols-6 md:grid-cols-3 sm:grid-cols-2 gap-4">
+        <div v-for="(item, index) in blogList" :key="index">
+          <img :src="item.image" class="shadow-md bg-cover bg-center bg-no-repeat rounded-lg w-[200px] h-[120px]" />
+          <div class="rounded-lg w-full h-[40px] -mt-3 text-white bg-gradient-to-b from-green-100 to-green-300 flex flex-col justify-end items-center">
+            <span class="hover:text-black">{{ item.title }}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -31,32 +26,36 @@
 
 <script setup>
 import { HighlightOutlined, RightOutlined } from '@ant-design/icons-vue'
-import card from '../card/index.vue'
+import { ref, onMounted, onUnmounted, reactive, toRefs, computed } from 'vue'
+import { list } from '@/api/blog'
+
+// 查询参数
+const data = reactive({
+  queryParams: {
+    pageNum: 1,
+    pageSize: 6,
+    type: 'life'
+  }
+})
+const { queryParams } = toRefs(data)
+
+var blogList = reactive([])
+
+onMounted(async () => {
+  // 这是一个获取到后端数据
+  const res = await list(queryParams.value) // 获取全部的设备信息
+  if (res.rows) Object.assign(blogList, res.rows)
+})
+
+const backgroundImage = computed((index) => {
+  console.log(index, blogList[index].image)
+  return {
+    backgroundImage: blogList[index].image
+  }
+})
 </script>
 <style lang="scss" scoped>
-.page {
-  position: relative;
-  width: 100%;
-  height: 100px;
-  padding: 10px;
-  margin-top: 30px;
-}
 .articleItem {
-  width: 160px;
-  height: 40px;
-  background: #013827;
-  border-radius: 20px;
-}
-.articleItem > p {
-  font-size: 20px;
-}
-.articleChange {
-  width: 60px;
-  height: 40px;
-  background: #013827;
-  border-radius: 20px;
-}
-.list {
-  margin-top: 20px;
+  background: #16740b;
 }
 </style>

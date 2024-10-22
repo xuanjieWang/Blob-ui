@@ -17,7 +17,6 @@ const compiledMarkdown = ref({})
 onMounted(() => {
   nextTick(async () => {
     const md = new MarkdownIt()
-    // const res = await getBlog(props.BlogId)
     const res = await getBlog(1)
     compiledMarkdown.value = md.render(res.data.text)
     console.log(compiledMarkdown.value)

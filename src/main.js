@@ -20,6 +20,7 @@ import MarkdownRenderer from './components/MarkdownRenderer/index.vue'
 // 导入语言文件
 import en from './assets/i18n/en.json'
 import cn from './assets/i18n/cn.json'
+
 // 创建 i18n 实例
 const i18n = createI18n({
   locale: 'en', // 设置默认语言

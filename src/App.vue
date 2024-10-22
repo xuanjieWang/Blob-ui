@@ -21,7 +21,7 @@ import Footer from './views/Footer/index.vue'
   color: #fff;
 }
 ::selection {
-  background-color: #ffcc00; /* 选中文本的背景颜色 */
+  background-color: #1f8f93; /* 选中文本的背景颜色 */
   color: #000000; /* 选中文本的颜色 */
 }
 </style>
