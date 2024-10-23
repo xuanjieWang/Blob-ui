@@ -67,3 +67,30 @@ body {
 ::-webkit-scrollbar-thumb:window-inactive {
   background: #3c3c3c;
 }
+
+@media screen and (max-width: 600px) {
+  .page {
+    width: 95%;
+  }
+  .mdItem {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 600px) and (max-width: 1024px) {
+  .page {
+    width: 75%;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .page {
+    width: 60%;
+  }
+}
+// 小屏幕的时候
+@media screen and (max-width: 766px) {
+  .blog {
+    margin-top: 200px;
+  }
+}

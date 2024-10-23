@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Context from '../views/Context/index.vue' //主页
 import BlogId from '../views/Context/blog/index.vue'
+import allBlog from '../views/Context/allBlog/index.vue'
 import aboutMe from '../views/Header/aboutMe/index.vue'
 import addBlog from '../views/Admin/addBlog/index.vue' //添加博客
 import dyVideo from '../views/DY/Video/index.vue'
@@ -22,6 +23,11 @@ const router = createRouter({
       path: '/blog:blogId(\\d+)',
       name: 'BlogId',
       component: BlogId
+    },
+    {
+      path: '/allBlog',
+      name: 'allBlog',
+      component: allBlog
     },
     {
       path: '/aboutMe',

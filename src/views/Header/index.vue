@@ -8,7 +8,7 @@
       <nav>
         <ul class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
           <li>
-            <TextButton text="博客" @click="go('/blog')"></TextButton>
+            <TextButton text="博客" @click="go('/allBlog')"></TextButton>
           </li>
           <li>
             <TextButton text="添加博客" @click="go('/addBlog')"></TextButton>
