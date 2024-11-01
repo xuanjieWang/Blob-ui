@@ -32,7 +32,10 @@
             <span>QQ,WX,邮箱</span>
           </div>
         </div>
-        <p class="random-quote">{{ randomQuote }}</p>
+        <div ref="text" class="random-quote">
+          {{ randomQuote }}
+        </div>
+        <!-- <p class="random-quote">{{ randomQuote }}</p> -->
         <div>
           <Article />
         </div>
@@ -48,11 +51,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, getCurrentInstance } from 'vue'
+import gsap from 'gsap'
 import quotesList from './quotes.js'
 import Article from './article/index.vue'
 import Life from './life/index.vue'
 import About from './about/index.vue'
+
+const { proxy } = getCurrentInstance()
 
 const count = ref(0)
 const videoChangeTimer = ref(null)
@@ -86,6 +92,20 @@ onMounted(() => {
   }, 3500)
 
   randomQuote.value = quotesList[Math.floor(Math.random() * quotesList.length)]
+
+  proxy.$refs.text.style.opacity = 0
+  proxy.$refs.text.style.transform = 'translateY(50px)'
+
+  gsap.to(proxy.$refs.text, {
+    duration: 0.8,
+    opacity: 0,
+    scale: 0,
+    y: 80,
+    rotationX: 180,
+    transformOrigin: '0% 50% -50',
+    ease: 'back',
+    stagger: 0.1
+  })
 })
 
 onUnmounted(() => {

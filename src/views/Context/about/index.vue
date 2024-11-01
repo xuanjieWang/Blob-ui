@@ -39,7 +39,7 @@ const data = reactive({
 })
 const { queryParams } = toRefs(data)
 
-var blogList = reactive([])
+var blogList = reactive([0])
 
 onMounted(async () => {
   // 这是一个获取到后端数据

@@ -6,7 +6,6 @@ import router from './router'
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/reset.css'
 import { createI18n } from 'vue-i18n'
-// import plugins from './plugins/index' // plugins
 
 // 引入Tailwindcss
 import 'tailwindcss/components.css'
@@ -38,8 +37,6 @@ app.component('MarkdownRenderer', MarkdownRenderer)
 app.use(router)
 app.use(Antd)
 app.use(store)
-// app.use(plugins)
-// 使用 i18n 插件
 app.use(i18n)
 
 app.mount('#app')

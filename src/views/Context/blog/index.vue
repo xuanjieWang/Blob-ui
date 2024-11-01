@@ -13,8 +13,8 @@
         <span class="font-bold text-white">目录总览</span>
         <li v-for="(item, index) in list" :key="index" @click="handleClick(index)">
           <div v-if="index % 2 == 0">
-            <span class="target" v-if="checkItem(index)">{{ item }}</span>
-            <span class="targetCh" v-else>{{ item }}</span>
+            <span class="target cursor-pointer" v-if="checkItem(index)">{{ item }}</span>
+            <span class="targetCh cursor-pointer" v-else>{{ item }}</span>
           </div>
         </li>
       </ul>

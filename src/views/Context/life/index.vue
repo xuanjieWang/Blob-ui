@@ -11,12 +11,12 @@
       </div>
     </div>
     <!---下面部分的文章显示-->
-    <div class="list flex justify-center items-center mt-3">
-      <div class="grid lg:grid-cols-6 md:grid-cols-3 sm:grid-cols-2 gap-4">
-        <div v-for="(item, index) in blogList" :key="index">
-          <img :src="item.image" class="shadow-md bg-cover bg-center bg-no-repeat rounded-lg w-[200px] h-[120px]" />
+    <div class="grid lg:grid-cols-6 md:grid-cols-3 sm:grid-cols-2 gap-4 mt-5">
+      <div v-for="(item, index) in blogList" :key="index">
+        <div @click="checkBlog(item.id)">
+          <img :src="item.image" class="cursor-pointer shadow-md bg-cover bg-center bg-no-repeat rounded-lg w-[200px] h-[120px]" />
           <div class="rounded-lg w-full h-[40px] -mt-3 text-white bg-gradient-to-b from-green-100 to-green-300 flex flex-col justify-end items-center">
-            <span class="hover:text-black">{{ item.title }}</span>
+            <span class="hover:text-black cursor-pointer">{{ item.title }}</span>
           </div>
         </div>
       </div>
@@ -26,8 +26,13 @@
 
 <script setup>
 import { HighlightOutlined, RightOutlined } from '@ant-design/icons-vue'
-import { ref, onMounted, onUnmounted, reactive, toRefs, computed } from 'vue'
+import { onMounted, reactive, toRefs, getCurrentInstance } from 'vue'
 import { list } from '@/api/blog'
+import { useRoute } from 'vue-router'
+
+const { proxy } = getCurrentInstance()
+
+const route = useRoute()
 
 // 查询参数
 const data = reactive({
@@ -39,7 +44,7 @@ const data = reactive({
 })
 const { queryParams } = toRefs(data)
 
-var blogList = reactive([])
+var blogList = reactive([0])
 
 onMounted(async () => {
   // 这是一个获取到后端数据
@@ -47,15 +52,12 @@ onMounted(async () => {
   if (res.rows) Object.assign(blogList, res.rows)
 })
 
-const backgroundImage = computed((index) => {
-  console.log(index, blogList[index].image)
-  return {
-    backgroundImage: blogList[index].image
-  }
-})
+const checkBlog = (id) => {
+  proxy.$router.push('/blog' + id) // 编程式导航
+}
 </script>
 <style lang="scss" scoped>
 .articleItem {
-  background: #16740b;
+  background: #179609;
 }
 </style>

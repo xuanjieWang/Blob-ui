@@ -11,16 +11,13 @@
             <TextButton text="博客" @click="go('/allBlog')"></TextButton>
           </li>
           <li>
-            <TextButton text="添加博客" @click="go('/addBlog')"></TextButton>
-          </li>
-          <li>
-            <TextButton text="下载抖音视频" @click="go('/dyVideo')"></TextButton>
-          </li>
-          <li>
-            <TextButton text="留言"></TextButton>
+            <TextButton text="生活" @click="go('/lifeBlog')"></TextButton>
           </li>
           <li>
             <TextButton text="关于" @click="go('/aboutMe')"></TextButton>
+          </li>
+          <li>
+            <TextButton text="后台" @click="go('/login')"></TextButton>
           </li>
         </ul>
       </nav>
@@ -42,7 +39,12 @@ function go(path) {
   position: fixed;
   width: 100%;
   color: #fff;
-  opacity: 0.7;
+  opacity: 0.9;
   background: #000;
+}
+@media screen and (max-width: 766px) {
+  .headerStyle {
+    position: absolute;
+  }
 }
 </style>

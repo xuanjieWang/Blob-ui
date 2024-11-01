@@ -1,21 +1,33 @@
 <template>
   <div class="body container mx-auto px-4 flex flex-col">
-    <Header />
+    <Header v-if="headerShow" />
     <router-view :key="$route.path" />
-    <Footer />
+    <Footer v-if="headerShow" />
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
 
 import Header from './views/Header/index.vue'
 import Footer from './views/Footer/index.vue'
+import settingStore from '@/stores/setting.js'
+
+const setting = settingStore()
+const headerShow = ref(true)
+
+onMounted(() => {
+  headerShow.value = setting.setHeaderShow(true)
+})
+
+watch(
+  () => setting.headerShow,
+  (val) => (headerShow.value = val)
+)
 </script>
 
 <style lang="scss" scoped>
 .body {
-  // background: radial-gradient(ellipse at bottom, #1b2745 0%, #090a0f 100%);
   background: #000;
   overflow: hidden;
   color: #fff;

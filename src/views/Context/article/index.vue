@@ -4,20 +4,20 @@
     <!---上面部分的图标和按钮-->
     <div class="w-full flex justify-between items-center">
       <div class="articleItem w-[160px] h-[40px] shadow-md rounded-lg flex gap-3 items-center">
-        <WalletOutlined :style="{ fontSize: '30px', color: '#08c' }" class="flex ml-4" />
+        <WalletOutlined :style="{ fontSize: '30px', color: '#08c' }" class="ml-4" />
         <p>文章</p>
       </div>
       <div class="articleItem shadow-md rounded-lg gap-2 items-center">
-        <RightOutlined :style="{ fontSize: '30px', color: '#08c' }" class="flex ml-4" />
+        <RightOutlined :style="{ fontSize: '30px', color: '#08c' }" class="ml-4" />
       </div>
     </div>
     <!---下面部分的文章显示-->
     <div class="grid lg:grid-cols-6 md:grid-cols-3 sm:grid-cols-2 gap-4 mt-5">
       <div v-for="(item, index) in blogList" :key="index">
         <div @click="checkBlog(item.id)">
-          <img :src="item.image" class="shadow-md bg-cover bg-center bg-no-repeat rounded-lg w-[200px] h-[120px]" />
+          <img :src="item.image" class="cursor-pointer shadow-md bg-cover bg-center bg-no-repeat rounded-lg w-[200px] h-[120px]" />
           <div class="rounded-lg w-full h-[40px] -mt-3 text-white bg-gradient-to-b from-green-100 to-green-300 flex flex-col justify-end items-center">
-            <span class="hover:text-black">{{ item.title }}</span>
+            <span class="hover:text-black cursor-pointer">{{ item.title }}</span>
           </div>
         </div>
       </div>
@@ -44,7 +44,7 @@ const data = reactive({
 })
 const { queryParams } = toRefs(data)
 
-var blogList = reactive([])
+var blogList = reactive([0])
 
 onMounted(async () => {
   const res = await list(queryParams.value) // 获取全部的设备信息

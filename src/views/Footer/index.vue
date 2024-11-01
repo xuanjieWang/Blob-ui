@@ -18,8 +18,8 @@ function go(path) {
 .footerStyle {
   width: 100%;
   height: 80px;
-  color: #000;
-  background: #fff;
+  color: #fff;
+  background: #000;
   text-align: center;
 }
 p {
