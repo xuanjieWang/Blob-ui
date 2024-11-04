@@ -32,7 +32,7 @@ import { notification } from 'ant-design-vue'
 import { SmileOutlined } from '@ant-design/icons-vue'
 
 // const { the_blog_type } = proxy.useDict('the_blog_type')
-import { addBlog } from '../../../api/blog'
+import { addBlog } from '@/api/blog'
 const rule = {
   title: [{ required: true, message: '文章标题不能为空' }],
   image: [{ required: true, message: '文章图片不能为空' }],

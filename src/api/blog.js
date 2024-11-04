@@ -22,3 +22,10 @@ export const addBlog = (data) => {
     data: data
   })
 }
+export const updateBlog = (data) => {
+  return request({
+    url: '/blog/data/updateBlog',
+    method: 'post',
+    data: data
+  })
+}

@@ -57,13 +57,18 @@ import quotesList from './quotes.js'
 import Article from './article/index.vue'
 import Life from './life/index.vue'
 import About from './about/index.vue'
+import settingStore from '@/stores/setting.js'
 
 const { proxy } = getCurrentInstance()
+
+const setting = settingStore()
 
 const count = ref(0)
 const videoChangeTimer = ref(null)
 const randomQuote = ref('')
 onMounted(() => {
+  setting.setHeaderShow(true)
+
   const btns = document.querySelectorAll('.nav-btn')
   const slides = document.querySelectorAll('.video-slide')
 
@@ -85,6 +90,7 @@ onMounted(() => {
       sliderNav(i)
     })
   })
+
   videoChangeTimer.value = setInterval(function () {
     count.value++
     if (count.value >= slides.length) count.value = 0

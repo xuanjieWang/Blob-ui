@@ -27,6 +27,7 @@ export default defineConfig({
     proxy: {
       '/dev-api': {
         target: 'http://localhost:8091',
+        // target: 'http://124.222.239.136:8091',
         changeOrigin: true,
         rewrite: (p) => p.replace(/^\/dev-api/, '')
       }

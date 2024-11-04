@@ -1,19 +1,29 @@
 <template>
-  <a-menu
-    style="width: 300px; height: 100vh"
-    v-model:openKeys="state.openKeys"
-    v-model:selectedKeys="state.selectedKeys"
-    mode="inline"
-    theme="dark"
-    :inline-collapsed="state.collapsed"
-    :items="items"></a-menu>
+  <div class="flex flex-col h-full">
+    <div class="flex flex-col justify-center items-center" style="height: 12vh">
+      <p>玄杰的博客</p>
+      <p>后台管理系统</p>
+    </div>
+    <a-menu
+      style="width: 240px; height: 100%; min-height: 100vh; font-size: 18px"
+      v-model:openKeys="state.openKeys"
+      v-model:selectedKeys="state.selectedKeys"
+      mode="inline"
+      theme="dark"
+      :inline-collapsed="state.collapsed"
+      :items="items"></a-menu>
+  </div>
 </template>
 <script setup>
-import { reactive, watch, h } from 'vue'
-import { MenuFoldOutlined, MenuUnfoldOutlined, PieChartOutlined, MailOutlined, DesktopOutlined, InboxOutlined, AppstoreOutlined } from '@ant-design/icons-vue'
+import { reactive, watch, h, onMounted, getCurrentInstance } from 'vue'
+import { PieChartOutlined, DesktopOutlined, InboxOutlined } from '@ant-design/icons-vue'
+
+const { proxy } = getCurrentInstance()
+const emit = defineEmits(['choseMenu'])
+
 const state = reactive({
   collapsed: false,
-  selectedKeys: ['1'],
+  selectedKeys: [],
   openKeys: ['sub1'],
   preOpenKeys: ['sub1']
 })
@@ -21,32 +31,30 @@ const items = reactive([
   {
     key: '0',
     icon: () => h(PieChartOutlined),
-    label: '返回',
-    title: '返回'
+    label: '首页',
+    title: '首页',
+    path: 'index'
   },
   {
     key: '1',
     icon: () => h(PieChartOutlined),
     label: '博客管理',
-    title: '博客管理'
+    title: '博客管理',
+    path: 'allBlog'
   },
   {
     key: '2',
     icon: () => h(DesktopOutlined),
-    label: 'Option 2',
-    title: 'Option 2'
+    label: '添加博客',
+    title: '添加博客',
+    path: 'addBlog'
   },
   {
     key: '3',
     icon: () => h(InboxOutlined),
-    label: 'Option 3',
-    title: 'Option 3'
-  },
-  {
-    key: '4',
-    icon: () => h(InboxOutlined),
-    label: 'Option 4',
-    title: 'Option 4'
+    label: '日志管理',
+    title: '日志管理',
+    path: 'logging'
   }
   //   {
   //     key: 'sub1',
@@ -112,14 +120,26 @@ const items = reactive([
   //     ]
   //   }
 ])
+
+onMounted(() => {
+  state.selectedKeys = ['0']
+})
+
 watch(
   () => state.openKeys,
   (_val, oldVal) => {
     state.preOpenKeys = oldVal
   }
 )
-const toggleCollapsed = () => {
-  state.collapsed = !state.collapsed
-  state.openKeys = state.collapsed ? [] : state.preOpenKeys
-}
+
+watch(
+  () => state.selectedKeys,
+  (val) => {
+    items.forEach((item) => {
+      if (item['key'] == val) {
+        emit('choseMenu', item['path'])
+      }
+    })
+  }
+)
 </script>
