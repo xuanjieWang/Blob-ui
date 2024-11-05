@@ -3,7 +3,7 @@
   <div class="blog w-full h-full flex justify-center gap-3">
     <div style="margin-top: 100px" class="page h-full flex flex-col items-center">
       <span class="font-bold text-2xl leading-loose">{{ blogData.title }}</span>
-      <span class="text-sm text-yellow-600">{{ blogData.createTime }}</span>
+      <span class="text-sm text-yellow-200">{{ blogData.createTime }}</span>
       <div v-html="compiledMarkdown"></div>
     </div>
 
@@ -70,20 +70,12 @@ function loadingMD(data) {
 var list = new Array()
 function mdPlugin(md) {
   md.renderer.rules.heading_open = (tokens, idx, options, env, self) => {
-    if (tokens[idx].tag === 'h1' && tokens[idx + 1].content) {
-      tokens[idx].attrSet('class', 'h1-style')
-      list.push(tokens[idx + 1].content)
-      list.push(tokens[idx].attrGet('id'))
-    }
-    if (tokens[idx].tag === 'h2') {
-      tokens[idx].attrSet('class', 'h2-style') // 添加样式
-      tokens[idx].attrSet('id', tokens[idx + 1].content + 'h2') // 添加进列表
-      list.push(tokens[idx + 1].content)
-      list.push(tokens[idx].attrGet('id'))
-    }
-    if (tokens[idx].tag === 'ol') {
-      tokens[idx].attrSet('class', 'ol-style')
-    }
+    const array = Array.from(tokens)
+    array.forEach((item) => {
+      if (item['tag'] && item['nesting'] === 1) {
+        item.attrSet('class', item['tag'] + '-style')
+      }
+    })
     return self.renderToken(tokens, idx, options)
   }
 }
@@ -135,26 +127,58 @@ onUnmounted(() => {
 }
 
 // 定义颜色变量
-$h1-color: #ccff00;
-$h2-color: #157027;
+$h1-color: #ff0037;
+$h2-color: #bf00ff;
 
 .h1-style {
   font-size: 1.5em; /* 设置字体大小 */
-  font-weight: 600;
-  line-height: 4rem;
+  font-weight: 800;
   color: $h1-color;
 }
 .h2-style {
   font-size: 1.3em; /* 设置字体大小 */
-  font-weight: 600;
-  line-height: 3rem;
+  font-weight: 700;
   color: $h2-color;
+}
+
+.li-style {
+  margin-left: 10px;
+  line-height: 35px;
+  color: #dfdada;
 }
 .bash-style {
   background-color: #8c4545;
   color: red;
   font-size: 2rem;
 }
+
+.blockquote-style {
+  color: rgb(82, 81, 81);
+  margin: 8px;
+  font-size: 1.1rem;
+}
+.p-style {
+  line-height: 40px;
+  margin: 8px;
+  font-size: 1.1rem;
+}
+.strong-style {
+  margin: 10px;
+  color: #fff;
+}
+.code-style {
+  background-color: #2e2e2e;
+}
+.language-bash {
+  background-color: #2e2e2e;
+}
+.language-js {
+  background-color: #2e2e2e;
+}
+.language-java {
+  background-color: rgb(163, 229, 22);
+}
+
 .target {
   color: $h1-color;
   font-size: 1rem;

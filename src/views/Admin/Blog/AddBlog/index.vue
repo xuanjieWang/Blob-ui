@@ -1,20 +1,21 @@
 <!-- 添加或修改设备数据对话框 -->
 <template>
-  <div class="body">
-    <div class="items flex">
-      <span>文章标题: &nbsp;</span>
+  <div class="flex flex-col h-full w-1/2 gap-5 p-5">
+    <div>
+      <span>博客标题: &nbsp;</span>
       <a-input v-model:value="form.title" placeholder="请输入文章标题" style="width: 300px" />
     </div>
-    <div class="items flex">
-      <span>文章封面: &nbsp;</span>
+    <div class="flex items-center">
+      <p>博客封面: &nbsp;</p>
       <a-upload v-model:file-list="fileList" :customRequest="requestUpload" :before-upload="beforeUpload">
         <a-button>
-          <upload-outlined></upload-outlined>
-          点击上传
+          <upload-outlined> 点击上传</upload-outlined>
         </a-button>
       </a-upload>
     </div>
-    <div class="items flex">
+    <img :src="form.image" style="height: 100px; width: 200px" />
+
+    <div class="flex">
       <span>文章类型: &nbsp;</span>
       <a-input v-model:value="form.type" placeholder="请输入文章类型" style="width: 300px" />
     </div>
@@ -106,18 +107,4 @@ function beforeUpload(file) {
 }
 </script>
 
-<style lang="scss" scoped>
-.body {
-  margin: 3% auto;
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  min-height: 100vh;
-  font-size: 20px;
-  color: #fff;
-  margin-left: 5%;
-}
-.items {
-  margin: 10px 0 10px 0;
-}
-</style>
+<style lang="scss" scoped></style>

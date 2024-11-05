@@ -1,18 +1,36 @@
 <!--页面-->
 <template>
   <div class="blog flex flex-col p-2 justify-center" style="height: 100%">
-    <a-button type="primary" class="w-20 flex justify-center items-center" :loading="iconLoading" @click="goAllBlog">
+    <a-button type="primary" class="w-20 flex justify-center items-center" @click="goAllBlog">
       <template #icon><LeftOutlined /> </template>
       返回
     </a-button>
+    <div class="flex flex-col p-5 gap-5">
+      <div class="flex gap-5">
+        <p>文章标题:</p>
+        <input v-model="blogData.title" placeholder="请输入文章标题" />
+        <p>文章类型:</p>
+        <input v-model="blogData.type" placeholder="请输入文章类型" />
+      </div>
+      <div class="flex gap-5">
+        <p>创建时间:</p>
+        <input type="datetime-local" id="datetimePicker" />
+      </div>
 
-    <div class="w-10 h-10 bg-white" @click="save()">1111</div>
+      <div class="flex gap-5 items-center">
+        <p>文章封面:</p>
+        <img :src="blogData.image" style="height: 100px" />
+        <input type="file" id="imageInput" name="image" accept="image/*" />
+        <a-button type="primary" class="w-20 flex justify-center items-center" @click="save()">
+          <template #icon><EditOutlined /> </template>
+          保存
+        </a-button>
+      </div>
+    </div>
 
     <div class="flex w-full h-full">
-      <textarea class="w-1/2 h-full textarea" v-model="compiledMarkdown" rows="100"></textarea>
-      <div class="page p-4 h-full flex flex-col items-center justify-center">
-        <span class="font-bold text-2xl leading-loose">{{ blogData.title }}</span>
-        <span class="text-sm text-yellow-600">{{ blogData.createTime }}</span>
+      <div id="vditor"></div>
+      <div class="w-1/2 page p-4 h-full flex flex-col items-center justify-center">
         <div v-html="compiledMarkdown"></div>
       </div>
     </div>
@@ -20,11 +38,13 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
-import { LeftOutlined } from '@ant-design/icons-vue'
+import { onMounted, ref, watch } from 'vue'
+import { LeftOutlined, EditOutlined } from '@ant-design/icons-vue'
 import { getBlog, updateBlog } from '@/api/blog'
 import MarkdownIt from 'markdown-it'
 import { css_beautify, html_beautify } from 'js-beautify'
+import Vditor from 'vditor'
+import 'vditor/dist/index.css'
 
 const emit = defineEmits(['choseMenu'])
 
@@ -34,31 +54,25 @@ const props = defineProps({
   }
 })
 
+const vditor = ref(null)
+
 const blogData = ref({})
 const compiledMarkdown = ref({})
+
+const data = ref('')
+const time = ref('')
 onMounted(async () => {
   const res = await getBlog(props.id)
   blogData.value = res.data
+  console.log(blogData.value.createTime)
+  // data.value = String(blogData.value.createTime).slice(0, 10)
+  console.log(data.value)
+  loadingEdit(res.data.text)
   loadingMD(res.data.text)
-
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  })
-
-  window.addEventListener('resize', function () {
-    checkElementSize()
-  })
 })
 
-const iconLoading = ref(false)
 function goAllBlog() {
-  iconLoading.value = true
-
-  setTimeout(() => {
-    emit('choseMenu', 'allBlog')
-    iconLoading.value = false
-  }, 200)
+  emit('choseMenu', 'allBlog')
 }
 
 // 加载md解析
@@ -69,45 +83,80 @@ function loadingMD(data) {
   compiledMarkdown.value = css_beautify(compiledMarkdown.value)
   compiledMarkdown.value = html_beautify(compiledMarkdown.value)
 }
-
-//  插件 - 锚点
-var list = new Array()
 function mdPlugin(md) {
   md.renderer.rules.heading_open = (tokens, idx, options, env, self) => {
-    if (tokens[idx].tag === 'h1' && tokens[idx + 1].content) {
-      tokens[idx].attrSet('class', 'h1-style')
-      list.push(tokens[idx + 1].content)
-      list.push(tokens[idx].attrGet('id'))
-    }
-    if (tokens[idx].tag === 'h2') {
-      tokens[idx].attrSet('class', 'h2-style') // 添加样式
-      tokens[idx].attrSet('id', tokens[idx + 1].content + 'h2') // 添加进列表
-      list.push(tokens[idx + 1].content)
-      list.push(tokens[idx].attrGet('id'))
-    }
-    if (tokens[idx].tag === 'ol') {
-      tokens[idx].attrSet('class', 'ol-style')
-    }
-
     const array = Array.from(tokens)
     array.forEach((item) => {
-      console.log(item)
+      if (item['tag'] && item['nesting'] === 1) {
+        item.attrSet('class', item['tag'] + '-style')
+      }
     })
-
     return self.renderToken(tokens, idx, options)
   }
 }
 
-function save() {
-  console.log(compiledMarkdown.value)
+function setCreateTime() {
+  const datetimePicker = document.getElementById('datetimePicker')
+  if (!datetimePicker.value) return
+  const selectedDateTime = datetimePicker.value
+
+  // 将输入的日期时间字符串转换为 yyyy-MM-dd HH:mm:ss 格式
+  const date = new Date(selectedDateTime)
+  const year = date.getFullYear()
+  const month = (date.getMonth() + 1).toString().padStart(2, '0')
+  const day = date.getDate().toString().padStart(2, '0')
+  const hours = date.getHours().toString().padStart(2, '0')
+  const minutes = date.getMinutes().toString().padStart(2, '0')
+  const seconds = date.getSeconds().toString().padStart(2, '0')
+  blogData.value.createTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
+}
+
+function loadingEdit(data) {
+  vditor.value = new Vditor('vditor', {
+    mode: 'ir', // 即时渲染模式
+    cache: {
+      enable: false
+    },
+    value: data,
+    toolbarConfig: {
+      pin: true
+    },
+    height: 'auto',
+    width: '50%'
+  })
+}
+
+const save = async () => {
+  // 图片更新
+  const imageInput = document.getElementById('imageInput')
+  const file = imageInput.files[0]
+
+  if (file) {
+    const reader = new FileReader()
+    reader.onload = function (e) {
+      blogData.value.image = e.target.result
+    }
+    reader.readAsDataURL(file)
+  }
+
+  // md文件上传
+  blogData.value.text = vditor.value.getValue()
+
+  // 时间更新
+  setCreateTime()
+
+  setTimeout(async () => {
+    console.log(blogData.value.image)
+    await updateBlog(blogData.value)
+  }, 1000)
 }
 </script>
 <style lang="scss" scoped>
 .textarea {
   background-color: #000;
   font-size: 18px;
-  line-height: 24px;
-  color: #c3bfbf;
+  line-height: 40px;
+  color: rgb(209, 204, 204);
 }
 .textarea-no-outline:focus {
   outline: none;
