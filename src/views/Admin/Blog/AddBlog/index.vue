@@ -1,6 +1,6 @@
 <!-- 添加或修改设备数据对话框 -->
 <template>
-  <div class="flex flex-col h-full w-1/2 gap-5 p-5">
+  <div class="flex flex-col h-full w-1/2 gap-5 p-2">
     <div>
       <span>博客标题: &nbsp;</span>
       <a-input v-model:value="form.title" placeholder="请输入文章标题" style="width: 300px" />

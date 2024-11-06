@@ -2,10 +2,11 @@
 <template>
   <div class="flex w-full h-full">
     <Sidebar @choseMenu="choseMenu" />
-    <div class="flex flex-col w-full h-full">
-      <allBlog @choseMenuId="choseMenuId" v-if="check === 'allBlog'" />
-      <editBlog v-if="check === 'editBlog'" :id="editId" @choseMenu="choseMenu" />
-      <addBlog v-if="check === 'addBlog'" />
+    <div class="flex flex-col w-full h-full bg-slate-700 min-h-screen">
+      <allBlog @choseMenuId="choseMenuId" v-if="check == 'allBlog'" />
+      <editBlog v-if="check == 'editBlog'" :id="editId" @choseMenu="choseMenu" />
+      <addBlog v-if="check == 'addBlog'" />
+      <blogType v-if="check == 'blogType'" />
     </div>
   </div>
 </template>
@@ -17,8 +18,9 @@ import Sidebar from './Sidebar/index.vue'
 import allBlog from './Blog/AllBlog/index.vue'
 import addBlog from './Blog/AddBlog/index.vue'
 import editBlog from './Blog/EditBlog/index.vue'
+import blogType from './Blog/BlogType/index.vue'
 
-const check = ref('index')
+const check = ref()
 
 const { proxy } = getCurrentInstance()
 
@@ -29,6 +31,8 @@ onMounted(() => {
 
 function choseMenu(data) {
   check.value = data
+  console.log('data', data)
+  if (data != 'back') localStorage.setItem('choseMenu', JSON.stringify(data))
 }
 
 const editId = ref(0)

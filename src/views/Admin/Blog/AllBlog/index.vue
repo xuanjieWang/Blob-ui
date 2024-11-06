@@ -1,8 +1,12 @@
 <!--页面-->
 <template>
-  <div class="flex flex-col items-center justify-center w-full">
-    <a-table class="mt-10 p-2" style="width: 90%" :dataSource="blogList" :columns="columns" bordered>
+  <div class="flex flex-col items-center justify-center w-full p-2">
+    <span class="mt-5 text-white font-bold">共有 {{ total }} 篇文章</span>
+    <a-table class="mt-5 p-2" style="width: 95%" :dataSource="blogList" :columns="columns" bordered :pagination="{ pageSize: 10 }">
       <template #bodyCell="{ column, record }">
+        <template v-if="column.dataIndex === 'image'">
+          <img :src="record.image" class="h-[50px] w-[100px]" />
+        </template>
         <template v-if="column.dataIndex === '编辑'">
           <div class="flex items-center justify-center p-2 cursor-pointer text-cyan-800" @click="editBlog(record.id)">
             <EditOutlined />
@@ -11,51 +15,20 @@
         </template>
       </template>
     </a-table>
-    <span class="mt-2 text-white font-bold">当前共有 {{ total }} 篇文章</span>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, reactive, toRefs, defineEmits } from 'vue'
 import { EditOutlined } from '@ant-design/icons-vue'
-
+import columns from './table'
 import { list } from '@/api/blog'
 
 const emit = defineEmits(['choseMenu'])
 
-var columns = [
-  {
-    title: '序号',
-    dataIndex: 'id',
-    key: 'id'
-  },
-  {
-    title: '标题',
-    dataIndex: 'title',
-    key: 'title'
-  },
-  {
-    title: '类别',
-    dataIndex: 'type',
-    key: 'type'
-  },
-  {
-    title: '创建时间',
-    dataIndex: 'createTime',
-    key: 'createTime'
-  },
-  {
-    title: '编辑',
-    dataIndex: '编辑'
-  }
-]
-
 // 查询参数
 const data = reactive({
-  queryParams: {
-    pageNum: 1,
-    pageSize: 10
-  }
+  queryParams: {}
 })
 const { queryParams } = toRefs(data)
 

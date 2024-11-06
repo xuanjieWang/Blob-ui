@@ -39,7 +39,8 @@ const route = useRoute()
 const data = reactive({
   queryParams: {
     pageNum: 1,
-    pageSize: 6
+    pageSize: 6,
+    type: 'notLife'
   }
 })
 const { queryParams } = toRefs(data)

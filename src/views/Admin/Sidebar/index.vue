@@ -1,9 +1,5 @@
 <template>
   <div class="flex flex-col h-full">
-    <div class="flex flex-col justify-center items-center" style="height: 12vh">
-      <p>玄杰的博客</p>
-      <p>后台管理系统</p>
-    </div>
     <a-menu
       style="width: 240px; height: 100%; min-height: 100vh; font-size: 18px"
       v-model:openKeys="state.openKeys"
@@ -24,10 +20,17 @@ const emit = defineEmits(['choseMenu'])
 const state = reactive({
   collapsed: false,
   selectedKeys: [],
-  openKeys: ['sub1'],
+  openKeys: ['0'],
   preOpenKeys: ['sub1']
 })
-const items = reactive([
+const items = [
+  {
+    key: '-1',
+    icon: () => h(PieChartOutlined),
+    label: '返回我的博客',
+    title: '返回我的博客',
+    path: 'back'
+  },
   {
     key: '0',
     icon: () => h(PieChartOutlined),
@@ -52,8 +55,22 @@ const items = reactive([
   {
     key: '3',
     icon: () => h(InboxOutlined),
-    label: '日志管理',
-    title: '日志管理',
+    label: '博客类型',
+    title: '博客类型',
+    path: 'blogType'
+  },
+  {
+    key: '4',
+    icon: () => h(InboxOutlined),
+    label: 'OSS图片管理',
+    title: 'OSS图片管理',
+    path: 'OSSImage'
+  },
+  {
+    key: '5',
+    icon: () => h(InboxOutlined),
+    label: '访问日志',
+    title: '访问日志',
     path: 'logging'
   }
   //   {
@@ -119,10 +136,19 @@ const items = reactive([
   //       }
   //     ]
   //   }
-])
+]
 
 onMounted(() => {
-  state.selectedKeys = ['0']
+  const cache = JSON.parse(localStorage.getItem('choseMenu'))
+  if (!cache || cache == 'back') {
+    state.selectedKeys = ['1']
+    return
+  }
+  items.forEach((item) => {
+    if (item['path'] === cache) {
+      state.selectedKeys = [item['key']]
+    }
+  })
 })
 
 watch(
@@ -135,11 +161,15 @@ watch(
 watch(
   () => state.selectedKeys,
   (val) => {
-    items.forEach((item) => {
-      if (item['key'] == val) {
-        emit('choseMenu', item['path'])
-      }
-    })
+    if (state.selectedKeys[0] == -1) {
+      proxy.$router.push('/index') // 编程式导航
+    } else {
+      items.forEach((item) => {
+        if (item['key'] == val) {
+          emit('choseMenu', item['path'])
+        }
+      })
+    }
   }
 )
 </script>

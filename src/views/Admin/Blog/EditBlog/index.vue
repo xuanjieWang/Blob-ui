@@ -1,6 +1,6 @@
 <!--页面-->
 <template>
-  <div class="blog flex flex-col p-2 justify-center" style="height: 100%">
+  <div class="blog flex flex-col p-2" style="height: 100%">
     <a-button type="primary" class="w-20 flex justify-center items-center" @click="goAllBlog">
       <template #icon><LeftOutlined /> </template>
       返回
@@ -64,9 +64,6 @@ const time = ref('')
 onMounted(async () => {
   const res = await getBlog(props.id)
   blogData.value = res.data
-  console.log(blogData.value.createTime)
-  // data.value = String(blogData.value.createTime).slice(0, 10)
-  console.log(data.value)
   loadingEdit(res.data.text)
   loadingMD(res.data.text)
 })
@@ -146,8 +143,13 @@ const save = async () => {
   setCreateTime()
 
   setTimeout(async () => {
-    console.log(blogData.value.image)
     await updateBlog(blogData.value)
+
+    // 重新获取到博客
+    const res = await getBlog(props.id)
+    blogData.value = res.data
+    loadingEdit(res.data.text)
+    loadingMD(res.data.text)
   }, 1000)
 }
 </script>
