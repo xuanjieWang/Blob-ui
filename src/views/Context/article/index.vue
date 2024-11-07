@@ -1,6 +1,6 @@
 <!--页面-->
 <template>
-  <div class="p-3 mt-5 flex flex-col">
+  <div class="p-3 mt-3 flex flex-col">
     <!---上面部分的图标和按钮-->
     <div class="w-full flex justify-between items-center">
       <div class="articleItem w-[120px] h-[40px] shadow-md rounded-lg flex gap-3 items-center">
@@ -15,11 +15,11 @@
       </div>
     </div>
     <!---下面部分的文章显示-->
-    <div class="grid lg:grid-cols-6 md:grid-cols-3 sm:grid-cols-2 gap-4 mt-5">
+    <div class="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2 gap-4 mt-3">
       <div v-for="(item, index) in blogList" :key="index">
-        <div @click="checkBlog(item.id)">
-          <img :src="item.image" class="cursor-pointer shadow-md bg-cover bg-center bg-no-repeat rounded-lg w-[200px] h-[120px]" />
-          <div class="rounded-lg w-full h-[40px] -mt-3 text-white bg-gradient-to-b from-green-100 to-green-300 flex flex-col justify-end items-center">
+        <div class="imageBorder" @click="checkBlog(item.id)">
+          <img :src="item.image" class="cursor-pointer shadow-md bg-cover bg-center bg-no-repeat w-[250px] h-[140px]" />
+          <div class="w-full h-[40px] -mt-3 text-white flex flex-col justify-end items-center">
             <span class="hover:text-black cursor-pointer">{{ item.title }}</span>
           </div>
         </div>
@@ -62,5 +62,9 @@ const checkBlog = (id) => {
 <style lang="scss" scoped>
 .articleItem {
   background: #3a0a78;
+}
+.imageBorder > img {
+  border-top-left-radius: 10px; /* 设置左上角圆角 */
+  border-top-right-radius: 10px; /* 设置右上角圆角 */
 }
 </style>

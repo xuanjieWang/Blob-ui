@@ -10,11 +10,14 @@
           <li>
             <TextButton text="博客" @click="go('/allBlog')"></TextButton>
           </li>
-          <li>
+          <!-- <li>
             <TextButton text="生活" @click="go('/lifeBlog')"></TextButton>
+          </li> -->
+          <li>
+            <TextButton text="功能" @click="go('/lifeBlog')"></TextButton>
           </li>
           <li>
-            <TextButton text="关于" @click="go('/aboutMe')"></TextButton>
+            <TextButton text="关于我" @click="go('/aboutMe')"></TextButton>
           </li>
           <li>
             <TextButton text="后台" @click="go('/login')"></TextButton>

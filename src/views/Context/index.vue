@@ -23,7 +23,7 @@
     </div>
 
     <div class="pages flex flex-col items-center">
-      <div class="mediaPage flex flex-col mt-10 p-5 items-center">
+      <div class="mediaPage flex flex-col p-5 items-center">
         <div class="flex gap-1">
           <img src="@/assets/img/icon.jpg" alt="Rotating Image" class="icon mr-5" />
           <div class="flex flex-col justify-around items-center gap-5">
@@ -52,9 +52,9 @@
             </div>
           </div>
         </div>
-        <div ref="text" class="random-quote">
+        <!-- <div ref="text" class="random-quote">
           {{ randomQuote }}
-        </div>
+        </div> -->
         <p class="random-quote">{{ randomQuote }}</p>
         <div>
           <Article />
@@ -63,7 +63,7 @@
           <Life />
         </div>
         <div>
-          <About />
+          <!-- <About /> -->
         </div>
       </div>
     </div>
@@ -176,19 +176,19 @@ const loadVideo = () => {
 
 const loadQuote = () => {
   randomQuote.value = quotesList[Math.floor(Math.random() * quotesList.length)]
-  proxy.$refs.text.style.opacity = 0
-  proxy.$refs.text.style.transform = 'translateY(50px)'
+  // proxy.$refs.text.style.opacity = 0
+  // proxy.$refs.text.style.transform = 'translateY(50px)'
 
-  gsap.to(proxy.$refs.text, {
-    duration: 0.8,
-    opacity: 0,
-    scale: 0,
-    y: 80,
-    rotationX: 180,
-    transformOrigin: '0% 50% -50',
-    ease: 'back',
-    stagger: 0.1
-  })
+  // gsap.to(proxy.$refs.text, {
+  //   duration: 0.8,
+  //   opacity: 0,
+  //   scale: 0,
+  //   y: 80,
+  //   rotationX: 180,
+  //   transformOrigin: '0% 50% -50',
+  //   ease: 'back',
+  //   stagger: 0.1
+  // })
 }
 </script>
 
