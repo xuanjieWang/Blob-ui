@@ -23,19 +23,39 @@
     </div>
 
     <div class="pages flex flex-col items-center">
-      <div class="mediaPage flex flex-col mt-5 p-5 items-center">
-        <div class="flex gap-10 mr-20">
-          <img src="@/assets/img/icon.jpg" alt="Rotating Image" class="icon mr-10" />
-          <div class="flex flex-col gap-8">
+      <div class="mediaPage flex flex-col mt-10 p-5 items-center">
+        <div class="flex gap-1">
+          <img src="@/assets/img/icon.jpg" alt="Rotating Image" class="icon mr-5" />
+          <div class="flex flex-col justify-around items-center gap-5">
             <span style="font-size: 30px">王玄杰</span>
-            <span>缘，妙不可言</span>
-            <span>QQ,WX,邮箱</span>
+            <div class="flex soial-icon gap-3">
+              <a-tooltip placement="bottom" color="#000">
+                <template #title>QQ 频道</template>
+                <img src="@/assets/icon/qq.png" @click="goLink('qq')" />
+              </a-tooltip>
+              <a-tooltip placement="bottom" color="#000">
+                <template #title>BiliBili 主页</template>
+                <img src="@/assets/icon/bilibili.png" @click="goLink('bilibili')" />
+              </a-tooltip>
+              <a-tooltip placement="bottom" color="#000">
+                <template #title>Google 邮箱</template>
+                <img src="@/assets/icon/gmail.png" @click="goLink('gmail')" />
+              </a-tooltip>
+              <a-tooltip placement="bottom" color="#000">
+                <template #title>Gitee 主页</template>
+                <img src="@/assets/icon/gitee.png" @click="goLink('gitee')" />
+              </a-tooltip>
+              <a-tooltip placement="bottom" color="#000">
+                <template #title>Github 主页</template>
+                <img src="@/assets/icon/github.png" @click="goLink('github')" />
+              </a-tooltip>
+            </div>
           </div>
         </div>
         <div ref="text" class="random-quote">
           {{ randomQuote }}
         </div>
-        <!-- <p class="random-quote">{{ randomQuote }}</p> -->
+        <p class="random-quote">{{ randomQuote }}</p>
         <div>
           <Article />
         </div>
@@ -68,10 +88,66 @@ const videoChangeTimer = ref(null)
 const randomQuote = ref('')
 onMounted(() => {
   setting.setHeaderShow(true)
+  loadVideo()
+  loadQuote()
 
+  window.addEventListener('mousewheel', WheelGo)
+})
+function WheelGo(e) {
+  const scrollHeight = window.pageYOffset
+  if (scrollHeight > 30 && scrollHeight < window.innerHeight - 120 && e.deltaY > 0) {
+    smoothScrollTo(window.innerHeight - 60, 500) // 1.5秒内滚动到距离顶部
+  }
+}
+function smoothScrollTo(targetY, duration) {
+  const start = window.pageYOffset
+  const end = targetY
+  const distance = end - start
+  let startTime = null
+
+  // 缓动函数
+  function easeInOutCubic(t, b, c, d) {
+    t /= d / 2
+    if (t < 1) return (c / 2) * t * t * t + b
+    t -= 2
+    return (c / 2) * (t * t * t + 2) + b
+  }
+
+  function step(timestamp) {
+    if (!startTime) startTime = timestamp
+    const timeElapsed = timestamp - startTime
+    const run = easeInOutCubic(timeElapsed, start, distance, duration)
+
+    window.scrollTo(0, run)
+
+    if (timeElapsed < duration) requestAnimationFrame(step)
+  }
+
+  requestAnimationFrame(step)
+}
+
+const goLink = (data) => {
+  if ('qq' == data) {
+    window.open('https://tool.gljlw.com/qq/?qq=2071985621', '_blank')
+  } else if ('github' == data) {
+    window.open('https://github.com/xuanjieWang', '_blank')
+  } else if ('gitee' == data) {
+    window.open('https://gitee.com/xuanjie123', '_blank')
+  } else if ('gmail' == data) {
+    window.open('https://wxjxj572@gmail.com', '_blank')
+  } else if ('bilibili' == data) {
+    window.open('https://space.bilibili.com/356639112?spm_id_from=333.1007.0.0', '_blank')
+  }
+}
+
+onUnmounted(() => {
+  clearInterval(videoChangeTimer.value)
+  window.removeEventListener('mousewheel', WheelGo)
+})
+
+const loadVideo = () => {
   const btns = document.querySelectorAll('.nav-btn')
   const slides = document.querySelectorAll('.video-slide')
-
   var sliderNav = function (manual) {
     btns.forEach((btn) => {
       btn.classList.remove('active')
@@ -96,9 +172,10 @@ onMounted(() => {
     if (count.value >= slides.length) count.value = 0
     sliderNav(count.value)
   }, 3500)
+}
 
+const loadQuote = () => {
   randomQuote.value = quotesList[Math.floor(Math.random() * quotesList.length)]
-
   proxy.$refs.text.style.opacity = 0
   proxy.$refs.text.style.transform = 'translateY(50px)'
 
@@ -112,11 +189,7 @@ onMounted(() => {
     ease: 'back',
     stagger: 0.1
   })
-})
-
-onUnmounted(() => {
-  clearInterval(videoChangeTimer.value)
-})
+}
 </script>
 
 <style scoped src="./index.scss"></style>

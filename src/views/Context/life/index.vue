@@ -2,12 +2,15 @@
 <template>
   <div class="p-3 mt-5 flex flex-col">
     <div class="flex justify-between items-center">
-      <div class="articleItem w-[160px] h-[40px] shadow-md rounded-lg flex gap-3 items-center">
+      <div class="articleItem w-[120px] h-[40px] shadow-md rounded-lg flex gap-3 items-center">
         <HighlightOutlined :style="{ fontSize: '30px', color: '#08c' }" class="flex ml-4" />
         <p>生活</p>
       </div>
-      <div class="articleItem shadow-md rounded-lg flex gap-2 items-center">
-        <RightOutlined :style="{ fontSize: '30px', color: '#08c' }" class="flex ml-4" />
+      <div class="articleItem shadow-md rounded-lg items-center cursor-pointer">
+        <a-tooltip placement="bottom" color="#000">
+          <template #title>查看更多</template>
+          <RightOutlined :style="{ fontSize: '30px', color: '#fff' }" class="ml-4" />
+        </a-tooltip>
       </div>
     </div>
     <!---下面部分的文章显示-->

@@ -1,8 +1,8 @@
-<!--页面-->
+页面
 <template>
   <div class="p-3 mt-5 flex flex-col">
     <div class="flex justify-between items-center">
-      <div class="articleItem w-[160px] h-[40px] shadow-md rounded-lg flex gap-3 items-center">
+      <div class="articleItem w-[120px] h-[40px] shadow-md rounded-lg flex gap-3 items-center">
         <HighlightOutlined :style="{ fontSize: '30px', color: '#08c' }" class="flex ml-4" />
         <p>关于</p>
       </div>

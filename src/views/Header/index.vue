@@ -1,6 +1,6 @@
 <!--页面-->
 <template>
-  <div class="py-4 headerStyle">
+  <div class="py-2 headerStyle">
     <div class="flex flex-col md:flex-row justify-between items-center">
       <div class="text-2xl font-bold ml-5" @click="go('/index')">
         <p>{{ $t('name') }}</p>
@@ -39,8 +39,13 @@ function go(path) {
   position: fixed;
   width: 100%;
   color: #fff;
-  opacity: 0.9;
-  background: #000;
+  height: 60px;
+  line-height: 60px;
+  background: rgba(0, 0, 0, 0.75); /* 半透明黑色背景 */
+  backdrop-filter: blur(20px); /* 背景模糊效果 */
+  -webkit-backdrop-filter: blur(20px); /* Safari支持 */
+  border-top: 0.5px solid #818080; /* 上方添加白色边框 */
+  border-bottom: 0.5px solid #818080; /* 下方添加白色边框 */
 }
 @media screen and (max-width: 766px) {
   .headerStyle {

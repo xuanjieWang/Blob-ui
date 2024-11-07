@@ -3,12 +3,15 @@
   <div class="p-3 mt-5 flex flex-col">
     <!---上面部分的图标和按钮-->
     <div class="w-full flex justify-between items-center">
-      <div class="articleItem w-[160px] h-[40px] shadow-md rounded-lg flex gap-3 items-center">
+      <div class="articleItem w-[120px] h-[40px] shadow-md rounded-lg flex gap-3 items-center">
         <WalletOutlined :style="{ fontSize: '30px', color: '#08c' }" class="ml-4" />
-        <p>文章</p>
+        <p class="text-[16px]">文章</p>
       </div>
-      <div class="articleItem shadow-md rounded-lg gap-2 items-center">
-        <RightOutlined :style="{ fontSize: '30px', color: '#08c' }" class="ml-4" />
+      <div class="articleItem shadow-md rounded-lg items-center cursor-pointer">
+        <a-tooltip placement="bottom" color="#000">
+          <template #title>查看更多</template>
+          <RightOutlined :style="{ fontSize: '30px', color: '#fff' }" class="ml-4" />
+        </a-tooltip>
       </div>
     </div>
     <!---下面部分的文章显示-->

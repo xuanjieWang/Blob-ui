@@ -2,6 +2,10 @@
 <template>
   <div class="blog w-full h-full flex justify-center gap-3">
     <div style="margin-top: 100px" class="page h-full flex flex-col items-center">
+      <div class="flex items-start w-full">
+        <a-button type="primary" @click="goBack">返回</a-button>
+      </div>
+
       <span class="font-bold text-2xl leading-loose">{{ blogData.title }}</span>
       <span class="text-sm text-yellow-200">{{ blogData.createTime }}</span>
       <div v-html="compiledMarkdown"></div>
@@ -23,7 +27,7 @@
 </template>
 
 <script setup>
-import { ref, getCurrentInstance, onMounted, onUnmounted } from 'vue'
+import { ref, getCurrentInstance, onMounted, onUnmounted, h } from 'vue'
 import { useRoute } from 'vue-router'
 import { getBlog } from '@/api/blog'
 import MarkdownIt from 'markdown-it'
@@ -70,12 +74,25 @@ function loadingMD(data) {
 var list = new Array()
 function mdPlugin(md) {
   md.renderer.rules.heading_open = (tokens, idx, options, env, self) => {
+    // 添加锚点
+    if (tokens[idx].tag === 'h1' && tokens[idx + 1].content) {
+      list.push(tokens[idx + 1].content)
+      list.push(tokens[idx].attrGet('id'))
+    }
+    if (tokens[idx].tag === 'h2') {
+      tokens[idx].attrSet('id', tokens[idx + 1].content + 'h2') // 添加进列表
+      list.push(tokens[idx + 1].content)
+      list.push(tokens[idx].attrGet('id'))
+    }
+
+    // 添加样式
     const array = Array.from(tokens)
     array.forEach((item) => {
       if (item['tag'] && item['nesting'] === 1) {
         item.attrSet('class', item['tag'] + '-style')
       }
     })
+
     return self.renderToken(tokens, idx, options)
   }
 }
@@ -112,6 +129,10 @@ function checkElementSize() {
 onUnmounted(() => {
   window.removeEventListener('resize', checkElementSize)
 })
+
+const goBack = () => {
+  proxy.$router.go(-1) // 编程式导航
+}
 </script>
 <style lang="scss">
 .blog {
