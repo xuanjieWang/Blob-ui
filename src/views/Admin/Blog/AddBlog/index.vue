@@ -1,6 +1,6 @@
 <!-- 添加或修改设备数据对话框 -->
 <template>
-  <div class="flex flex-col h-full w-1/2 gap-5 p-2">
+  <div class="flex flex-col h-full gap-5 p-2">
     <div>
       <span>博客标题: &nbsp;</span>
       <a-input v-model:value="form.title" placeholder="请输入文章标题" style="width: 300px" />
@@ -57,6 +57,7 @@ onMounted(() => {
     cache: {
       enable: false
     },
+    mode: 'wysiwyg',
     after: () => {
       vditor.value.setValue(value.value)
     }
@@ -85,6 +86,7 @@ const submit = async () => {
     openNotification('top', '文章不能为空')
     return
   }
+  console.log(form.value)
   await addBlog(form.value).then(openNotification('top', '文章发布成功'))
   form.value = {}
 }

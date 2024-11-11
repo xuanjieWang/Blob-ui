@@ -7,6 +7,9 @@ import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/reset.css'
 import { createI18n } from 'vue-i18n'
 
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+
 // 引入Tailwindcss
 import 'tailwindcss/components.css'
 import 'tailwindcss/utilities.css'
@@ -38,5 +41,6 @@ app.use(router)
 app.use(Antd)
 app.use(store)
 app.use(i18n)
+app.use(mavonEditor)
 
 app.mount('#app')

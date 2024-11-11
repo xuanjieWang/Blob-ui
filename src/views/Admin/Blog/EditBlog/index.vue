@@ -110,7 +110,7 @@ function setCreateTime() {
 
 function loadingEdit(data) {
   vditor.value = new Vditor('vditor', {
-    mode: 'ir', // 即时渲染模式
+    // mode: 'ir', // 即时渲染模式
     cache: {
       enable: false
     },
@@ -138,6 +138,7 @@ const save = async () => {
 
   // md文件上传
   blogData.value.text = vditor.value.getValue()
+  console.log(blogData.value.text)
 
   // 时间更新
   setCreateTime()

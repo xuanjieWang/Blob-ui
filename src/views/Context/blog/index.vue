@@ -8,7 +8,7 @@
 
       <span class="font-bold text-2xl leading-loose">{{ blogData.title }}</span>
       <span class="text-sm text-yellow-200">{{ blogData.createTime }}</span>
-      <div v-html="compiledMarkdown"></div>
+      <div v-html="compiledMarkdown" id="compiledMarkdown"></div>
     </div>
 
     <!--右侧的跳转栏目-->
@@ -32,7 +32,6 @@ import { useRoute } from 'vue-router'
 import { getBlog } from '@/api/blog'
 import MarkdownIt from 'markdown-it'
 import anchor from 'markdown-it-anchor'
-
 const { proxy } = getCurrentInstance()
 const route = useRoute()
 
@@ -52,21 +51,25 @@ onMounted(async () => {
   window.addEventListener('resize', function () {
     checkElementSize()
   })
+  console.log(document.getElementById('compiledMarkdown'))
 })
 
 // 加载md解析
 function loadingMD(data) {
   const md = new MarkdownIt({})
 
-  // 添加anchor插件
+  //添加anchor插件
   md.use(anchor, {
     permalink: true,
     permalinkClass: 'header-anchor',
     permalinkSymbol: '',
-    level: [1, 6] // 指定要处理的标题级别，默认为 [1, 6]
+    level: [1, 6] // 指定要处理的标题级别，默认为 [1, 6],
   })
+
   // 添加自定义标签
   md.use(mdPlugin)
+  md.use(myImagePlugin)
+
   compiledMarkdown.value = md.render(data)
 }
 
@@ -87,13 +90,35 @@ function mdPlugin(md) {
 
     // 添加样式
     const array = Array.from(tokens)
-    array.forEach((item) => {
+
+    for (let i = 0; i < array.length; i++) {
+      const item = array[i]
       if (item['tag'] && item['nesting'] === 1) {
         item.attrSet('class', item['tag'] + '-style')
       }
-    })
+    }
 
     return self.renderToken(tokens, idx, options)
+  }
+}
+
+// 创建自定义插件
+function myImagePlugin(md) {
+  // 捕获渲染后的 open tag 事件
+  const defaultRender =
+    md.renderer.rules.p_open ||
+    function (tokens, idx, options, env, self) {
+      return self.renderToken(tokens, idx, options)
+    }
+
+  md.renderer.rules.p_open = function (tokens, idx, options, env, self) {
+    // 替换 <p> 标签为 <img> 标签
+    const aIndex = tokens[idx].attrIndex('src')
+    if (aIndex >= 0) {
+      tokens[idx].tag = 'img'
+      tokens[idx].attrs[aIndex][1] = 'http://example.com/image.png' // 设置你的图片 URL
+    }
+    return defaultRender(tokens, idx, options, env, self)
   }
 }
 
@@ -200,6 +225,11 @@ $h2-color: #bf00ff;
   background-color: rgb(163, 229, 22);
 }
 
+.image-style {
+  height: 10%;
+  width: 50%;
+  background-color: red;
+}
 .target {
   color: $h1-color;
   font-size: 1rem;

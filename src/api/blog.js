@@ -29,3 +29,10 @@ export const updateBlog = (data) => {
     data: data
   })
 }
+
+export const delBlog = (id) => {
+  return request({
+    url: '/blog/data/' + id,
+    method: 'delete'
+  })
+}
