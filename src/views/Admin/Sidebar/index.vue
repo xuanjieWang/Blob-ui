@@ -64,7 +64,7 @@ const items = [
     icon: () => h(InboxOutlined),
     label: 'OSS图片管理',
     title: 'OSS图片管理',
-    path: 'OSSImage'
+    path: 'ossImage'
   },
   {
     key: '5',

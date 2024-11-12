@@ -1,19 +1,20 @@
 <!--页面-->
 <template>
   <div class="flex flex-col justify-center w-full p-5">
-    <div class="flex items-center p-2">
-      <span>数据筛选: &nbsp;</span>
+    <div class="flex items-center p-2 gap-3">
+      <span>博客类型: &nbsp;</span>
       <a-tree-select
-        v-model:value="typeValue"
-        style="width: 35%"
+        v-model:value="blogType"
+        style="width: 20%"
         :tree-data="treeData"
         tree-checkable
         allow-clear
         :show-checked-strategy="SHOW_PARENT"
         placeholder="请选择博客类型"
         tree-node-filter-prop="label" />
+      <a-button type="primary" @click="getBlogByType" style="width: 100px">查询</a-button>
     </div>
-    <span class="mt-5 text-white font-bold">共有 {{ total }} 篇文章</span>
+    <span class="mt- text-white font-bold">共有 {{ total }} 篇文章</span>
     <a-table class="mt-5 p-2" :dataSource="blogList" :columns="columns" bordered :pagination="{ pageSize: 10 }">
       <template #bodyCell="{ column, record }">
         <template v-if="column.dataIndex === 'image'">
@@ -57,12 +58,12 @@ var blogList = reactive([])
 const total = ref(0)
 const typeList = reactive([])
 
-const typeValue = ref()
+const blogType = ref()
 var treeData = reactive([])
 
 onMounted(async () => {
   const res = await list(queryParams.value) // 获取全部的设备信息
-  if (res.rows) Object.assign(blogList, res.rows)
+  blogList = res.rows
   total.value = res.total
 
   const typeRes = await listAll({})
@@ -93,9 +94,16 @@ const del = async (id) => {
   await delBlog(id)
   setTimeout(async () => {
     const res = await list(queryParams.value) // 获取全部的设备信息
-    if (res.rows) Object.assign(blogList, res.rows)
+    blogList = res.rows
     total.value = res.total
   }, 1000)
+}
+
+const getBlogByType = async () => {
+  if (!blogType.value) return
+  const res = await list({ blogType: blogType.value }) // 获取全部的设备信息
+  blogList = res.rows
+  total.value = res.total
 }
 </script>
 <style lang="scss" scoped></style>

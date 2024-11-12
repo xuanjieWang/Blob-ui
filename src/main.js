@@ -5,10 +5,9 @@ import App from './App.vue'
 import router from './router'
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/reset.css'
-import { createI18n } from 'vue-i18n'
 
-import mavonEditor from 'mavon-editor'
-import 'mavon-editor/dist/css/index.css'
+// 引入国际化
+import { createI18n } from 'vue-i18n'
 
 // 引入Tailwindcss
 import 'tailwindcss/components.css'
@@ -16,8 +15,9 @@ import 'tailwindcss/utilities.css'
 import './assets/css/tailwind.css'
 
 // 全局组件
-import TextButton from '../src/components/TextButton/index.vue'
-import MarkdownRenderer from './components/MarkdownRenderer/index.vue'
+import TextButton from '@/components/TextButton/index.vue'
+import UpDownLoading from '@/components/UpDownLoading/index.vue'
+import TextLoading from '@/components/TextLoading/index.vue'
 
 // 导入语言文件
 import en from './assets/i18n/en.json'
@@ -35,12 +35,12 @@ const i18n = createI18n({
 const app = createApp(App)
 
 app.component('TextButton', TextButton)
-app.component('MarkdownRenderer', MarkdownRenderer)
+app.component('UpDownLoading', UpDownLoading)
+app.component('TextLoading', TextLoading)
 
 app.use(router)
 app.use(Antd)
 app.use(store)
 app.use(i18n)
-app.use(mavonEditor)
 
 app.mount('#app')

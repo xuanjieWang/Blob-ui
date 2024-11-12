@@ -1,4 +1,4 @@
-<!--页面-->
+<!--个人生活页面-->
 <template>
   <div class="p-3 mt-3 flex flex-col">
     <div class="flex justify-between items-center">
@@ -13,7 +13,6 @@
         </a-tooltip>
       </div>
     </div>
-    <!---下面部分的文章显示-->
     <div class="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2 gap-4 mt-3">
       <div v-for="(item, index) in blogList" :key="index">
         <div class="imageBorder" @click="checkBlog(item.id)">
@@ -31,18 +30,13 @@
 import { HighlightOutlined, RightOutlined } from '@ant-design/icons-vue'
 import { onMounted, reactive, toRefs, getCurrentInstance } from 'vue'
 import { list } from '@/api/blog'
-import { useRoute } from 'vue-router'
-
 const { proxy } = getCurrentInstance()
 
-const route = useRoute()
-
-// 查询参数
 const data = reactive({
   queryParams: {
     pageNum: 1,
     pageSize: 6,
-    type: 'life'
+    type: '生活'
   }
 })
 const { queryParams } = toRefs(data)
@@ -50,13 +44,18 @@ const { queryParams } = toRefs(data)
 var blogList = reactive([0])
 
 onMounted(async () => {
-  // 这是一个获取到后端数据
-  const res = await list(queryParams.value) // 获取全部的设备信息
-  if (res.rows) Object.assign(blogList, res.rows)
+  // 获取到所有生活数据，并只展示前4条
+  const res = await list(queryParams.value)
+  if (!res.rows) return
+  let length = 0
+  length = res.rows.length < 4 ? res.rows.length : 4
+  for (let i = 0; i < length; i++) {
+    blogList[i] = res.rows[i]
+  }
 })
 
 const checkBlog = (id) => {
-  proxy.$router.push('/blog' + id) // 编程式导航
+  proxy.$router.push('/blog' + id)
 }
 </script>
 <style lang="scss" scoped>

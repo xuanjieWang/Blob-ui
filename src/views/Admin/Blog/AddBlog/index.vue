@@ -6,6 +6,19 @@
       <a-input v-model:value="form.title" placeholder="请输入文章标题" style="width: 300px" />
     </div>
     <div class="flex items-center">
+      <span>文章类型: &nbsp;</span>
+      <!-- <a-input v-model:value="form.type" placeholder="请输入文章类型" style="width: 300px" /> -->
+      <a-tree-select
+        v-model:value="form.blogType"
+        style="width: 300px"
+        :tree-data="treeData"
+        tree-checkable
+        allow-clear
+        :show-checked-strategy="SHOW_PARENT"
+        placeholder="请选择博客类型"
+        tree-node-filter-prop="label" />
+    </div>
+    <div class="flex items-center">
       <p>博客封面: &nbsp;</p>
       <a-upload v-model:file-list="fileList" :customRequest="requestUpload" :before-upload="beforeUpload">
         <a-button>
@@ -15,10 +28,6 @@
     </div>
     <img :src="form.image" style="height: 100px; width: 200px" />
 
-    <div class="flex">
-      <span>文章类型: &nbsp;</span>
-      <a-input v-model:value="form.type" placeholder="请输入文章类型" style="width: 300px" />
-    </div>
     <div id="vditor" style="height: 600px; width: 90%" name="description"></div>
     <a-button type="primary" @click="submit" style="width: 100px; margin: 20px">发布文章</a-button>
   </div>
@@ -31,14 +40,9 @@ import { reactive, watch, ref, toRefs, computed, onMounted, getCurrentInstance, 
 const { proxy } = getCurrentInstance()
 import { notification } from 'ant-design-vue'
 import { SmileOutlined } from '@ant-design/icons-vue'
+import { listAll } from '@/api/blogType'
 
-// const { the_blog_type } = proxy.useDict('the_blog_type')
 import { addBlog } from '@/api/blog'
-const rule = {
-  title: [{ required: true, message: '文章标题不能为空' }],
-  image: [{ required: true, message: '文章图片不能为空' }],
-  type: [{ required: true, message: '文章类型不能为空' }]
-}
 
 const data = reactive({
   form: {}
@@ -49,6 +53,8 @@ const vditor = ref('')
 const value = ref('')
 const unwatch = ref(null)
 onMounted(() => {
+  getBlogType()
+
   vditor.value = new Vditor('vditor', {
     height: 350,
     toolbarConfig: {
@@ -68,6 +74,31 @@ onMounted(() => {
     }
   })
 })
+
+var treeData = reactive([])
+var typeList = reactive([])
+const getBlogType = async () => {
+  const typeRes = await listAll({})
+  if (typeRes.data) Object.assign(typeList, typeRes.data)
+  typeList.forEach((item) => {
+    if (!item.parentType) {
+      treeData.push({
+        label: item.type,
+        value: item.type,
+        children: []
+      })
+      typeList.forEach((child) => {
+        if (child.parentType && child.parentType === item.type) {
+          treeData[treeData.length - 1].children.push({
+            label: child.type,
+            value: child.type
+          })
+        }
+      })
+    }
+  })
+}
+
 const getValue = () => {
   return vditor.value.getValue()
 }
@@ -82,11 +113,10 @@ const openNotification = (placement, message) => {
 
 const submit = async () => {
   form.value.text = getValue()
-  if (!form.value.title || !form.value.type) {
+  if (!form.value.title || !form.value.blogType) {
     openNotification('top', '文章不能为空')
     return
   }
-  console.log(form.value)
   await addBlog(form.value).then(openNotification('top', '文章发布成功'))
   form.value = {}
 }

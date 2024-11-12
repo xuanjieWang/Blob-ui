@@ -52,19 +52,16 @@
             </div>
           </div>
         </div>
-        <!-- <div ref="text" class="random-quote">
-          {{ randomQuote }}
-        </div> -->
-        <p class="random-quote">{{ randomQuote }}</p>
-        <div>
+        <TextLoading :data="randomQuote" />
+        <UpDownLoading>
           <Article />
-        </div>
-        <div>
+        </UpDownLoading>
+        <UpDownLoading>
           <Life />
-        </div>
-        <div>
-          <!-- <About /> -->
-        </div>
+        </UpDownLoading>
+        <!-- <div>
+          <About />
+        </div> -->
       </div>
     </div>
   </div>
@@ -72,7 +69,6 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, getCurrentInstance } from 'vue'
-import gsap from 'gsap'
 import quotesList from './quotes.js'
 import Article from './article/index.vue'
 import Life from './life/index.vue'
@@ -87,15 +83,16 @@ const count = ref(0)
 const videoChangeTimer = ref(null)
 const randomQuote = ref('')
 onMounted(() => {
+  window.addEventListener('mousewheel', WheelGo)
+
   setting.setHeaderShow(true)
   loadVideo()
   loadQuote()
-
-  window.addEventListener('mousewheel', WheelGo)
 })
 function WheelGo(e) {
+  console.log(e)
   const scrollHeight = window.pageYOffset
-  if (scrollHeight > 30 && scrollHeight < window.innerHeight - 120 && e.deltaY > 0) {
+  if (scrollHeight > 0 && scrollHeight < window.innerHeight - 100 && e.deltaY > 0) {
     smoothScrollTo(window.innerHeight - 60, 500) // 1.5秒内滚动到距离顶部
   }
 }
@@ -117,9 +114,7 @@ function smoothScrollTo(targetY, duration) {
     if (!startTime) startTime = timestamp
     const timeElapsed = timestamp - startTime
     const run = easeInOutCubic(timeElapsed, start, distance, duration)
-
     window.scrollTo(0, run)
-
     if (timeElapsed < duration) requestAnimationFrame(step)
   }
 
@@ -176,19 +171,6 @@ const loadVideo = () => {
 
 const loadQuote = () => {
   randomQuote.value = quotesList[Math.floor(Math.random() * quotesList.length)]
-  // proxy.$refs.text.style.opacity = 0
-  // proxy.$refs.text.style.transform = 'translateY(50px)'
-
-  // gsap.to(proxy.$refs.text, {
-  //   duration: 0.8,
-  //   opacity: 0,
-  //   scale: 0,
-  //   y: 80,
-  //   rotationX: 180,
-  //   transformOrigin: '0% 50% -50',
-  //   ease: 'back',
-  //   stagger: 0.1
-  // })
 }
 </script>
 

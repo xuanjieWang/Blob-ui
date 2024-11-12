@@ -1,0 +1,30 @@
+<!--页面加载动画，上下滚动-->
+<template>
+  <div class="box">
+    <slot></slot>
+  </div>
+</template>
+
+<script setup>
+import gsap from 'gsap'
+import { onMounted } from 'vue'
+
+onMounted(() => {
+  animate()
+})
+
+const animate = () => {
+  const t1 = gsap.timeline()
+  t1.to('.box', {
+    y: 10,
+    opacity: 0.65, // 改变透明度
+    duration: 0.5 // 动画持续时间
+  })
+  t1.to('.box', {
+    y: 0,
+    opacity: 1, // 改变透明度
+    duration: 0.5 // 动画持续时间
+  })
+}
+</script>
+<style lang="scss" scoped></style>

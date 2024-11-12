@@ -10,7 +10,15 @@
         <p>文章标题:</p>
         <input v-model="blogData.title" placeholder="请输入文章标题" />
         <p>文章类型:</p>
-        <input v-model="blogData.type" placeholder="请输入文章类型" />
+        <a-tree-select
+          v-model:value="blogData.type"
+          style="width: 300px"
+          :tree-data="treeData"
+          tree-checkable
+          allow-clear
+          :show-checked-strategy="SHOW_PARENT"
+          placeholder="请选择博客类型"
+          tree-node-filter-prop="label" />
       </div>
       <div class="flex gap-5">
         <p>创建时间:</p>
@@ -38,9 +46,10 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, reactive, ref, watch } from 'vue'
 import { LeftOutlined, EditOutlined } from '@ant-design/icons-vue'
 import { getBlog, updateBlog } from '@/api/blog'
+import { listAll } from '@/api/blogType'
 import MarkdownIt from 'markdown-it'
 import { css_beautify, html_beautify } from 'js-beautify'
 import Vditor from 'vditor'
@@ -54,19 +63,43 @@ const props = defineProps({
   }
 })
 
+var treeData = reactive([])
+var typeList = reactive([])
+
 const vditor = ref(null)
 
 const blogData = ref({})
 const compiledMarkdown = ref({})
 
-const data = ref('')
-const time = ref('')
 onMounted(async () => {
   const res = await getBlog(props.id)
   blogData.value = res.data
   loadingEdit(res.data.text)
   loadingMD(res.data.text)
+  getBlogType()
 })
+
+const getBlogType = async () => {
+  const typeRes = await listAll({})
+  if (typeRes.data) Object.assign(typeList, typeRes.data)
+  typeList.forEach((item) => {
+    if (!item.parentType) {
+      treeData.push({
+        label: item.type,
+        value: item.type,
+        children: []
+      })
+      typeList.forEach((child) => {
+        if (child.parentType && child.parentType === item.type) {
+          treeData[treeData.length - 1].children.push({
+            label: child.type,
+            value: child.type
+          })
+        }
+      })
+    }
+  })
+}
 
 function goAllBlog() {
   emit('choseMenu', 'allBlog')
@@ -138,15 +171,14 @@ const save = async () => {
 
   // md文件上传
   blogData.value.text = vditor.value.getValue()
-  console.log(blogData.value.text)
+
+  blogData.value.blogType = new Array(blogData.value.type)
 
   // 时间更新
   setCreateTime()
 
   setTimeout(async () => {
     await updateBlog(blogData.value)
-
-    // 重新获取到博客
     const res = await getBlog(props.id)
     blogData.value = res.data
     loadingEdit(res.data.text)

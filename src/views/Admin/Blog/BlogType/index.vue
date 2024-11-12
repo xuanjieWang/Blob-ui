@@ -2,7 +2,7 @@
 <template>
   <div class="flex flex-col justify-center items-center w-full p-2">
     <div class="flex items-start w-full mt-3 ml-20">
-      <a-button type="primary" :icon="h(PlusOutlined)" @click="openAdd = true"> 添加博客 </a-button>
+      <a-button type="primary" :icon="h(PlusOutlined)" @click="openAdd = true"> 添加类型 </a-button>
     </div>
 
     <div class="flex justify-around w-full gap-5">
@@ -111,7 +111,7 @@ const handleOk = async () => {
 
   setTimeout(() => {
     getBlog()
-  }, 1000)
+  }, 500)
 }
 
 const openAdd = ref(false)

@@ -28,7 +28,7 @@ const data = reactive({
   queryParams: {
     pageNum: 1,
     pageSize: 20,
-    type: 'life'
+    type: '生活'
   }
 })
 const { queryParams } = toRefs(data)

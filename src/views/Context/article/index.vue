@@ -47,12 +47,15 @@ const data = reactive({
   }
 })
 const { queryParams } = toRefs(data)
-
 var blogList = reactive([0])
 
 onMounted(async () => {
   const res = await list(queryParams.value) // 获取全部的设备信息
-  if (res.rows) Object.assign(blogList, res.rows)
+  let length = 0
+  length = res.rows.length < 4 ? res.rows.length : 4
+  for (let i = 0; i < length; i++) {
+    blogList[i] = res.rows[i]
+  }
 })
 
 const checkBlog = (id) => {
