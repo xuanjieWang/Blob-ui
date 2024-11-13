@@ -80,13 +80,15 @@ body {
 
 @media screen and (min-width: 600px) and (max-width: 1024px) {
   .page {
-    width: 75%;
+    width: 90%;
+    margin-left: 5%;
   }
 }
 
 @media screen and (min-width: 1025px) {
   .page {
-    width: 60%;
+    width: 75%;
+    margin-left: 5%;
   }
 }
 // 小屏幕的时候

@@ -1,4 +1,4 @@
-<!-- 添加或修改设备数据对话框 -->
+<!-- 添加博客页面 -->
 <template>
   <div class="flex flex-col h-full gap-5 p-2">
     <div>
@@ -7,7 +7,6 @@
     </div>
     <div class="flex items-center">
       <span>文章类型: &nbsp;</span>
-      <!-- <a-input v-model:value="form.type" placeholder="请输入文章类型" style="width: 300px" /> -->
       <a-tree-select
         v-model:value="form.blogType"
         style="width: 300px"
@@ -25,11 +24,10 @@
           <upload-outlined> 点击上传</upload-outlined>
         </a-button>
       </a-upload>
+      <img :src="form.image" style="height: 80px; width: 160px" class="ml-5" />
     </div>
-    <img :src="form.image" style="height: 100px; width: 200px" />
-
-    <div id="vditor" style="height: 600px; width: 90%" name="description"></div>
-    <a-button type="primary" @click="submit" style="width: 100px; margin: 20px">发布文章</a-button>
+    <div id="vditor" style="min-height: 600px; width: 100%" name="description"></div>
+    <a-button type="primary" @click="submit" style="width: 100px; margin: 5px">发布文章</a-button>
   </div>
 </template>
 

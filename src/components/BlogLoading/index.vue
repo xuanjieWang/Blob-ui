@@ -1,6 +1,6 @@
 <!--文字加载动画-->
 <template>
-  <div class="textLoadingBox" id="textLoadingBox"></div>
+  <div class="BlogLoadingBox" id="BlogLoadingBox"></div>
 </template>
 
 <script setup>
@@ -9,7 +9,7 @@ import { watch, defineProps } from 'vue'
 
 const props = defineProps({
   data: {
-    type: String
+    type: String    
   }
 })
 
@@ -22,14 +22,14 @@ watch(
         return `<span>` + char + `</span>`
       })
       .join('')
-    document.getElementById('textLoadingBox').innerHTML = line
+    document.getElementById('BlogLoadingBox').innerHTML = line
     animate()
   }
 )
 
 const animate = () => {
   gsap.timeline().fromTo(
-    '.textLoadingBox span',
+    '.BlogLoadingBox span',
     {
       opacity: 0,
       y: 20, // 向上移动的距离
@@ -48,14 +48,14 @@ const animate = () => {
 }
 </script>
 <style lang="scss" scoped>
-.textLoadingBox {
+.BlogLoadingBox {
   margin-top: 20px;
   padding: 10px 10px 0px 0px;
   font-size: 15px;
   color: rgba(255, 255, 255, 0.75);
   width: 80%;
 }
-.textLoadingBox span {
+.BlogLoadingBox span {
   opacity: 0;
 }
 </style>
