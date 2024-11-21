@@ -14,8 +14,9 @@
         tree-node-filter-prop="label" />
       <a-button type="primary" @click="getBlogByType" style="width: 100px">查询</a-button>
     </div>
-    <span class="mt- text-white font-bold">共有 {{ total }} 篇文章</span>
-    <a-table class="mt-5 p-2" :dataSource="blogList" :columns="columns" bordered :pagination="{ pageSize: 10 }">
+    <span class="mt- text-white font-bold">共有 {{ pagination.total }} 篇文章</span>
+    <a-table class="mt-5 p-2" :dataSource="blogList" :columns="columns" bordered :pagination="pagination">
+      >
       <template #bodyCell="{ column, record }">
         <template v-if="column.dataIndex === 'image'">
           <img :src="record.image" class="h-[50px] w-[100px]" />
@@ -48,23 +49,30 @@ import { listAll } from '@/api/blogType'
 const SHOW_PARENT = TreeSelect.SHOW_PARENT
 const emit = defineEmits(['choseMenu'])
 
+var pagination = reactive({
+  pageSize: 10, // 每页显示的条数
+  showSizeChanger: true, // 是否可以改变每页显示的条数
+  pageSizeOptions: ['10', '20', '30'], // 可选的每页显示条数
+  showQuickJumper: true, // 是否可以快速跳转到指定页
+  showTotal: (total) => `共 ${total} 条`, // 显示总条数和当前数据范围
+  current: 1, // 当前页数
+  total: 50, // 总条数
+  onChange: handlePageChange // 页码改变时的回调函数
+})
 // 查询参数
 const data = reactive({
-  queryParams: {}
+  queryParams: {
+    pageNum: 1,
+    pageSize: 10
+  }
 })
 const { queryParams } = toRefs(data)
-
-var blogList = reactive([])
-const total = ref(0)
-const typeList = reactive([])
 
 const blogType = ref()
 var treeData = reactive([])
 
 onMounted(async () => {
-  const res = await list(queryParams.value) // 获取全部的设备信息
-  blogList = res.rows
-  total.value = res.total
+  getData()
 
   const typeRes = await listAll({})
   if (typeRes.data) Object.assign(typeList, typeRes.data)
@@ -87,6 +95,22 @@ onMounted(async () => {
   })
 })
 
+var blogList = reactive([])
+const typeList = reactive([])
+const getData = async () => {
+  queryParams.pageNum = pagination.current
+  queryParams.pageSize = pagination.pageSize
+  const res = await list(queryParams) // 获取全部的设备信息
+  Object.assign(blogList, res.rows)
+  pagination.total = res.total
+}
+
+function handlePageChange(page, pageSize) {
+  pagination.current = page
+  pagination.pageSize = pageSize
+  getData()
+}
+
 function editBlog(id) {
   emit('choseMenuId', id)
 }
@@ -95,7 +119,6 @@ const del = async (id) => {
   setTimeout(async () => {
     const res = await list(queryParams.value) // 获取全部的设备信息
     blogList = res.rows
-    total.value = res.total
   }, 1000)
 }
 
@@ -103,7 +126,6 @@ const getBlogByType = async () => {
   if (!blogType.value) return
   const res = await list({ blogType: blogType.value }) // 获取全部的设备信息
   blogList = res.rows
-  total.value = res.total
 }
 </script>
 <style lang="scss" scoped></style>

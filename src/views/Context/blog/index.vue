@@ -52,7 +52,6 @@ onMounted(async () => {
   window.addEventListener('resize', function () {
     checkElementSize()
   })
-  console.log(document.getElementById('compiledMarkdown'))
 })
 
 // 加载md解析
@@ -69,7 +68,7 @@ function loadingMD(data) {
 
   // 添加自定义标签
   md.use(mdPlugin)
-  md.use(myImagePlugin)
+  // md.use(myImagePlugin)
 
   compiledMarkdown.value = md.render(data)
 }
@@ -163,7 +162,6 @@ const goBack = () => {
 <style lang="scss">
 .blog {
   background-image: url('../../../assets/img/background-night.png');
-  background-size: cover;
   min-height: 100vh;
   color: #aba8a8;
   font-size: 1rem;
@@ -263,5 +261,7 @@ $h2-color: #bf00ff;
   height: 600px; /* 设置最大高度为500px */
   overflow: auto; /* 如果内容超出最大高度，则显示滚动条 */
   margin-left: 80%;
+  padding: 10px;
+  border-radius: 20px;
 }
 </style>

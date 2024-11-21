@@ -49,7 +49,6 @@ onMounted(async () => {
 
 const getOssByType = async () => {
   const res = await list() // 获取全部的设备信息
-  console.log(res)
   ossList = res.data
   total.value = res.total
 }
