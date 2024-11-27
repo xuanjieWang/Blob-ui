@@ -33,7 +33,6 @@ onMounted(() => {
 // 切换导航栏
 function choseMenu(data) {
   check.value = data
-  console.log(data)
   if (data != 'back') localStorage.setItem('choseMenu', JSON.stringify(data))
 }
 

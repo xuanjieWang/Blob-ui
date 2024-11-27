@@ -51,6 +51,7 @@
               </a-tooltip>
             </div>
           </div>
+          <Weather />
         </div>
         <TextLoading :data="randomQuote" />
         <UpDownLoading>
@@ -74,6 +75,7 @@ import Article from './article/index.vue'
 import Life from './life/index.vue'
 import About from './about/index.vue'
 import settingStore from '@/stores/setting.js'
+import Weather from '../Header/weather'
 
 const { proxy } = getCurrentInstance()
 
@@ -90,7 +92,6 @@ onMounted(() => {
   loadQuote()
 })
 function WheelGo(e) {
-  console.log(e)
   const scrollHeight = window.pageYOffset
   if (scrollHeight > 0 && scrollHeight < window.innerHeight - 100 && e.deltaY > 0) {
     smoothScrollTo(window.innerHeight - 60, 500) // 1.5秒内滚动到距离顶部
