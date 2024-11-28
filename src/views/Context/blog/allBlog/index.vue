@@ -3,7 +3,7 @@
   <div class="blog flex flex-col items-center">
     <div class="page flex flex-col">
       <span style="margin-top: 100px" class="text-white font-bold text-5xl">分类-博客</span>
-      <span class="mt-10 text-white font-bold text-4xl">当前共有 {{ total }} 篇文章</span>
+      <span class="mt-10 text-white font-bold text-4xl">当前共有 {{ total || '-' }} 篇文章</span>
       <div v-for="(item, index) in blogList" :key="index">
         <div class="w-full text-2xl mt-10 text-white flex" @click="checkBlog(item.id)">
           <div class="w-2/3 ml-5 hover:underline">{{ item.title }}</div>
@@ -33,7 +33,7 @@ const data = reactive({
 const { queryParams } = toRefs(data)
 
 var blogList = reactive([])
-const total = ref(0)
+const total = ref()
 
 onMounted(async () => {
   const res = await list(queryParams.value) // 获取全部的设备信息

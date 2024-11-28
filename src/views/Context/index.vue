@@ -5,17 +5,6 @@
     <div style="height: 100vh">
       <video class="video-slide active" src="../../assets/home.mp4" autoplay muted loop></video>
       <video class="video-slide" src="../../assets/home2.mp4" autoplay muted loop></video>
-
-      <!-- <div class="article">
-        <p>你好, 我是</p>
-        <p>王玄杰</p>
-        <p>一名全栈开发工程师</p>
-        <p>
-          喜欢<span class="java">Java</span>、<span class="Python">Python</span>、<span class="Go">Go</span><span>&nbsp;和&nbsp;</span><span class="Vue">Vue</span>、<span class="React">React</span>
-        </p>
-        <p>我在这个网站记录我的成长，努力 💪 成为一个更好的程序员</p>
-      </div> -->
-
       <div class="slider-navigation">
         <div class="nav-btn active"></div>
         <div class="nav-btn"></div>
@@ -24,15 +13,16 @@
 
     <div class="pages flex flex-col items-center">
       <div class="mediaPage flex flex-col p-5 items-center">
-        <div class="flex gap-1">
+        <div class="flex gap-5">
           <img src="@/assets/img/icon.jpg" alt="Rotating Image" class="icon mr-5" />
-          <div class="flex flex-col justify-around items-center gap-5">
-            <span style="font-size: 30px">王玄杰</span>
-            <div class="flex soial-icon gap-3">
-              <a-tooltip placement="bottom" color="#000">
+          <div class="flex flex-col justify-center gap-2">
+            <span style="font-size: 30px; word-break: break-all">王&nbsp;玄&nbsp;杰</span>
+            <span>&nbsp;</span>
+            <div class="flex soial-icon">
+              <!-- <a-tooltip placement="bottom" color="#000">
                 <template #title>QQ 频道</template>
                 <img src="@/assets/icon/qq.png" @click="goLink('qq')" />
-              </a-tooltip>
+              </a-tooltip> -->
               <a-tooltip placement="bottom" color="#000">
                 <template #title>BiliBili 主页</template>
                 <img src="@/assets/icon/bilibili.png" @click="goLink('bilibili')" />

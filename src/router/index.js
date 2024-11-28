@@ -2,12 +2,6 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
 import { createRouter, createWebHistory } from 'vue-router'
-import Context from '../views/Context/index.vue' //主页
-import BlogId from '../views/Context/blog/index.vue'
-import lifeBlog from '../views/Context/lifeBlog/index.vue'
-import allBlog from '../views/Context/allBlog/index.vue'
-import aboutMe from '../views/Header/aboutMe/index.vue'
-import login from '../views/Admin/login/index.vue'
 import adminRouter from './admin'
 
 const router = createRouter({
@@ -16,42 +10,52 @@ const router = createRouter({
     {
       path: '/',
       name: 'Context',
-      component: Context
+      component: import('../views/Context/index.vue')
     },
     {
       path: '/index',
       name: 'index',
-      component: Context
+      component: import('../views/Context/index.vue')
     },
     {
       path: '/blog:blogId(\\d+)',
       name: 'BlogId',
-      component: BlogId
+      component: import('../views/Context/blog/index.vue')
     },
     {
       path: '/allBlog',
       name: 'allBlog',
-      component: allBlog
+      component: import('../views/Context/blog/allBlog/index.vue')
     },
     {
       path: '/lifeBlog',
       name: 'lifeBlog',
-      component: lifeBlog
+      component: import('../views/Context/blog/lifeBlog/index.vue')
     },
     {
       path: '/login',
       name: 'login',
-      component: login
+      component: import('../views/Admin/login/index.vue')
     },
     {
       path: '/aboutMe',
       name: 'aboutMe',
-      component: aboutMe
+      component: import('../views/Header/aboutMe/index.vue')
     },
     {
-      path: '/dy',
-      name: 'dy',
-      component: () => import('@/views/DY/Video/index.vue')
+      path: '/GithubProject',
+      name: 'GithubProject',
+      component: import('/src/views/Context/blog/GithubProject/index.vue')
+    },
+    {
+      path: '/wallHaven',
+      name: 'wallHaven',
+      component: import('/src/views/Context/blog/GithubProject/index.vue')
+    },
+    {
+      path: '/Video',
+      name: 'Video',
+      component: import('/src/views/Context/blog/GithubProject/index.vue')
     },
     ...adminRouter
   ]

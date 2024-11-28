@@ -32,7 +32,7 @@
         </svg>
       </div>
       <div class="ml-3 mt-2 github flex justify-center items-center" @click="go('back')">
-        <div>回首页</div>
+        <div>首页</div>
       </div>
     </div>
   </div>

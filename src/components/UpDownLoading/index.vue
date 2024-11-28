@@ -15,15 +15,17 @@ onMounted(() => {
 
 const animate = () => {
   const t1 = gsap.timeline()
+
   t1.to('.box', {
     y: 20,
-    opacity: 0.75, // 改变透明度
-    duration: 0.3 // 动画持续时间
+    opacity: 0, // 改变透明度
+    duration: 0.05 // 动画持续时间
   })
+
   t1.to('.box', {
     y: 0,
-    opacity: 1, // 改变透明度
-    duration: 0.3 // 动画持续时间
+    opacity: 1, // 恢复透明度
+    duration: 0.75 // 动画持续时间
   })
 }
 </script>

@@ -30,7 +30,7 @@
 
 <script setup>
 import { WalletOutlined, RightOutlined } from '@ant-design/icons-vue'
-import { ref, onMounted, onUnmounted, reactive, toRefs, getCurrentInstance } from 'vue'
+import { ref, onMounted, onUnmounted, reactive, toRefs, getCurrentInstance, computed } from 'vue'
 import { list } from '@/api/blog'
 import { useRoute } from 'vue-router'
 
@@ -50,6 +50,7 @@ const { queryParams } = toRefs(data)
 var blogList = reactive([0])
 
 onMounted(async () => {
+  // blogList[0].image = 'http://xuanjie22.oss-cn-beijing.aliyuncs.com/blog/back316.png'
   const res = await list(queryParams.value) // 获取全部的设备信息
   let length = 0
   length = res.rows.length < 4 ? res.rows.length : 4
@@ -61,6 +62,11 @@ onMounted(async () => {
 const checkBlog = (id) => {
   proxy.$router.push('/blog' + id) // 编程式导航
 }
+
+//     return item.image || "http://xuanjie22.oss-cn-beijing.aliyuncs.com/blog/back316.png"
+//   }
+// }
+const imageSrc = computed(() => item.image || defaultImage)
 </script>
 <style lang="scss" scoped>
 .articleItem {

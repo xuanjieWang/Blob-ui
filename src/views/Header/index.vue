@@ -1,20 +1,17 @@
 <!--页面-->
 <template>
   <div class="py-2 headerStyle">
-    <div class="flex flex-col md:flex-row justify-between items-center">
-      <div class="text-2xl font-bold ml-5" @click="go('/index')">
+    <div class="flex flex-col md:flex-row justify-between">
+      <div class="text-xl font-bold ml-5 text-center" @click="go('/index')">
         <p>{{ $t('name') }}</p>
       </div>
       <nav>
         <ul class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
           <li>
-            <TextButton text="博客" @click="go('/allBlog')"></TextButton>
+            <TextButton text="博客" :items="blogList"></TextButton>
           </li>
-          <!-- <li>
-            <TextButton text="生活" @click="go('/lifeBlog')"></TextButton>
-          </li> -->
           <li>
-            <TextButton text="功能" @click="go('/lifeBlog')"></TextButton>
+            <TextButton text="功能" :items="functionList"></TextButton>
           </li>
           <li>
             <TextButton text="关于我" @click="go('/aboutMe')"></TextButton>
@@ -30,6 +27,7 @@
 
 <script setup>
 import { getCurrentInstance } from 'vue'
+import { blogList, functionList } from './HeadleTable.js'
 const { proxy } = getCurrentInstance()
 
 function go(path) {
