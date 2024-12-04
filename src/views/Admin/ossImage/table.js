@@ -7,8 +7,8 @@ var columns = [
   },
   {
     title: '类型',
-    dataIndex: 'type',
-    key: 'type',
+    dataIndex: 'fileName',
+    key: 'fileName',
     align: 'center'
   },
   {

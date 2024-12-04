@@ -1,28 +1,26 @@
 <!--页面-->
 <template>
-  <div class="blog w-full h-full flex gap-3">
-    <div style="margin-top: 80px" class="page h-full flex flex-col items-center">
-      <!---返回按钮-->
+  <div class="blog w-full h-full flex gap-3 mt-20">
+    <div class="page h-full flex flex-col items-center">
       <div class="flex items-start w-full">
         <a-button type="primary" @click="goBack">返回</a-button>
       </div>
-      <!---文章标题和时间-->
       <span class="font-bold text-2xl leading-loose">{{ blogData.title }}</span>
-      <span class="text-sm text-yellow-200">{{ blogData.createTime }}</span>
-      <div v-html="compiledMarkdown" id="compiledMarkdown"></div>
+      <span class="text-sm text-cyan-50">{{ blogData.createTime }}&nbsp;&nbsp;{{ fontCount }}&nbsp;字</span>
+      <div class="BlogText">
+        <div v-html="compiledMarkdown" id="compiledMarkdown"></div>
+      </div>
     </div>
 
     <!--右侧的跳转栏目-->
-    <div v-if="showPaeItem" class="emunItem fixed flex flex-col" id="mdItem">
-      <ul>
-        <span class="font-bold text-white">目录总览</span>
-        <li v-for="(item, index) in list" :key="index" @click="handleClick(index)">
-          <div v-if="index % 2 == 0">
-            <span class="target cursor-pointer" v-if="checkItem(index)">{{ item }}</span>
-            <span class="targetCh cursor-pointer" v-else>{{ item }}</span>
-          </div>
-        </li>
-      </ul>
+    <div v-if="showPaeItem" class="emunItem flex flex-col" id="mdItem">
+      <span class="font-bold text-white">目录总览</span>
+      <li v-for="(item, index) in list" :key="index" @click="handleClick(index)">
+        <div v-if="index % 2 == 0">
+          <span class="target cursor-pointer" v-if="checkItem(index)">{{ item }}</span>
+          <span class="targetCh cursor-pointer" v-else>{{ item }}</span>
+        </div>
+      </li>
     </div>
   </div>
 </template>
@@ -35,13 +33,15 @@ import MarkdownIt from 'markdown-it'
 import anchor from 'markdown-it-anchor'
 const { proxy } = getCurrentInstance()
 const route = useRoute()
-
 const blogData = ref({})
 const compiledMarkdown = ref({})
+
+const fontCount = ref(0)
 
 onMounted(async () => {
   const res = await getBlog(route.params.blogId)
   blogData.value = res.data
+  fontCount.value = res.data.text.length || 0
   loadingMD(res.data.text)
 
   window.scrollTo({
@@ -68,8 +68,6 @@ function loadingMD(data) {
 
   // 添加自定义标签
   md.use(mdPlugin)
-  // md.use(myImagePlugin)
-
   compiledMarkdown.value = md.render(data)
 }
 
@@ -102,25 +100,25 @@ function mdPlugin(md) {
   }
 }
 
-// 创建自定义插件
-function myImagePlugin(md) {
-  // 捕获渲染后的 open tag 事件
-  const defaultRender =
-    md.renderer.rules.p_open ||
-    function (tokens, idx, options, env, self) {
-      return self.renderToken(tokens, idx, options)
-    }
+// // 创建自定义插件
+// function myImagePlugin(md) {
+//   // 捕获渲染后的 open tag 事件
+//   const defaultRender =
+//     md.renderer.rules.p_open ||
+//     function (tokens, idx, options, env, self) {
+//       return self.renderToken(tokens, idx, options)
+//     }
 
-  md.renderer.rules.p_open = function (tokens, idx, options, env, self) {
-    // 替换 <p> 标签为 <img> 标签
-    const aIndex = tokens[idx].attrIndex('src')
-    if (aIndex >= 0) {
-      tokens[idx].tag = 'img'
-      tokens[idx].attrs[aIndex][1] = 'http://example.com/image.png' // 设置你的图片 URL
-    }
-    return defaultRender(tokens, idx, options, env, self)
-  }
-}
+//   md.renderer.rules.p_open = function (tokens, idx, options, env, self) {
+//     // 替换 <p> 标签为 <img> 标签
+//     const aIndex = tokens[idx].attrIndex('src')
+//     if (aIndex >= 0) {
+//       tokens[idx].tag = 'img'
+//       tokens[idx].attrs[aIndex][1] = 'http://example.com/image.png' // 设置你的图片 URL
+//     }
+//     return defaultRender(tokens, idx, options, env, self)
+//   }
+// }
 
 // 锚点跳转
 function handleClick(index) {
@@ -260,8 +258,27 @@ $h2-color: #bf00ff;
   margin-top: 150px;
   height: 600px; /* 设置最大高度为500px */
   overflow: auto; /* 如果内容超出最大高度，则显示滚动条 */
-  margin-left: 80%;
+  // margin-left: 80%;
+  // position: fixed;
   padding: 10px;
   border-radius: 20px;
+}
+
+@media screen and (max-width: 600px) {
+  .BlogText {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  .BlogText {
+    width: 90%;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .BlogText {
+    width: 80%;
+  }
 }
 </style>

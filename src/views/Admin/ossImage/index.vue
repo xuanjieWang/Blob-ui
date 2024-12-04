@@ -19,12 +19,13 @@
       <template #bodyCell="{ column, record }">
         <template v-if="column.dataIndex === 'imageUrl'">
           <div class="flex justify-start items-center gap-5">
-            <img :src="record.imageUrl" class="h-[50px] w-[100px]" />
+            <img :src="record.imageUrl" class="h-[50px] w-[100px]" @click="clickImg(record.imageUrl)" />
             <p style="user-select: all">{{ record.imageUrl }}</p>
           </div>
         </template>
       </template>
     </a-table>
+    <img v-if="showUrl != null" :src="showUrl" class="h-[500px] w-[1000px] z-1000" @click="clickImg(null)" />
   </div>
 </template>
 
@@ -43,6 +44,8 @@ const total = ref(0)
 
 var treeData = reactive([])
 
+const showUrl = ref(null)
+
 onMounted(async () => {
   getOssByType()
 })
@@ -51,6 +54,11 @@ const getOssByType = async () => {
   const res = await list() // 获取全部的设备信息
   ossList = res.data
   total.value = res.total
+}
+const clickImg = (open) => {
+  showUrl.value = open
+
+  console.log(showUrl.value)
 }
 </script>
 <style lang="scss" scoped></style>

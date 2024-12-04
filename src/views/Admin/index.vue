@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, getCurrentInstance } from 'vue'
 import settingStore from '@/stores/setting.js'
 import Sidebar from './Sidebar/index.vue'
 import allBlog from './Blog/AllBlog/index.vue'
@@ -24,10 +24,17 @@ import blogType from './Blog/BlogType/index.vue'
 import ossImage from './ossImage/index.vue'
 import index from './index/index.vue'
 
+const { proxy } = getCurrentInstance()
+
 const check = ref()
 const setting = settingStore()
 onMounted(() => {
   setting.setHeaderShow(false)
+  const id = new URLSearchParams(window.location.search).get('id')
+  console.log(id)
+  if (id !== '8903670' && id !== '75986564') {
+    proxy.$router.push('/')
+  }
 })
 
 // 切换导航栏
