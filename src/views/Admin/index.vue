@@ -9,6 +9,8 @@
       <addBlog v-if="check == 'addBlog'" />
       <blogType v-if="check == 'blogType'" />
       <ossImage v-if="check == 'ossImage'" />
+      <busInfo v-if="check == 'bus'" />
+      <logging v-if="check == 'logging'" />
     </div>
   </div>
 </template>
@@ -23,15 +25,16 @@ import editBlog from './Blog/EditBlog/index.vue'
 import blogType from './Blog/BlogType/index.vue'
 import ossImage from './ossImage/index.vue'
 import index from './index/index.vue'
-
+import busInfo from './busInfo/index.vue' //bus
+import logging from './logging/index.vue'
 const { proxy } = getCurrentInstance()
 
 const check = ref()
 const setting = settingStore()
 onMounted(() => {
   setting.setHeaderShow(false)
+
   const id = new URLSearchParams(window.location.search).get('id')
-  console.log(id)
   if (id !== '8903670' && id !== '75986564') {
     proxy.$router.push('/')
   }

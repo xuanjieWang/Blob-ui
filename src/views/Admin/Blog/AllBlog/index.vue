@@ -1,4 +1,4 @@
-<!--页面-->
+<!--博客管理页面-->
 <template>
   <div class="flex flex-col justify-center w-full p-5">
     <div class="flex items-center p-2 gap-3">
@@ -100,7 +100,7 @@ const typeList = reactive([])
 const getData = async () => {
   queryParams.pageNum = pagination.current
   queryParams.pageSize = pagination.pageSize
-  const res = await list(queryParams) // 获取全部的设备信息
+  const res = await list(queryParams)
   Object.assign(blogList, res.rows)
   pagination.total = res.total
 }

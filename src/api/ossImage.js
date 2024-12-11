@@ -1,8 +1,9 @@
 import request from '@/utils/request'
 
-export function list() {
+export function list(params) {
   return request({
     url: '/ossImage/data/list',
-    method: 'get'
+    method: 'get',
+    params: params
   })
 }

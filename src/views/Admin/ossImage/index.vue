@@ -3,19 +3,13 @@
   <div class="flex flex-col justify-center w-full p-5">
     <div class="flex items-center p-2 gap-3">
       <span>图片类型: &nbsp;</span>
-      <a-tree-select
-        v-model:value="type"
-        style="width: 20%"
-        :tree-data="treeData"
-        tree-checkable
-        allow-clear
-        :show-checked-strategy="SHOW_PARENT"
-        placeholder="请选择图片类型"
-        tree-node-filter-prop="label" />
+      <a-space direction="vertical">
+        <a-input v-model:value="queryParams.fileName" placeholder="请输入类型" />
+      </a-space>
       <a-button type="primary" @click="getOssByType" style="width: 100px">查询</a-button>
     </div>
-    <span class="text-white font-bold">共上传 {{ total }} 张oss图像</span>
-    <a-table class="mt-1 p-2" :dataSource="ossList" :columns="columns" bordered :pagination="{ pageSize: 10 }">
+    <span class="text-white font-bold">共上传 {{ pagination.total }} 张oss图像</span>
+    <a-table class="mt-1 p-2" :dataSource="ossList" :columns="columns" bordered :pagination="pagination">
       <template #bodyCell="{ column, record }">
         <template v-if="column.dataIndex === 'imageUrl'">
           <div class="flex justify-start items-center gap-5">
@@ -30,35 +24,50 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive, toRefs, defineEmits } from 'vue'
+import { ref, onMounted, reactive, toRefs } from 'vue'
 import columns from './table'
 import { list } from '@/api/ossImage'
-import { TreeSelect } from 'ant-design-vue'
-
-const SHOW_PARENT = TreeSelect.SHOW_PARENT
-
-const type = ref()
 
 var ossList = reactive([])
-const total = ref(0)
-
-var treeData = reactive([])
-
 const showUrl = ref(null)
 
-onMounted(async () => {
+var pagination = reactive({
+  pageSize: 10,
+  showSizeChanger: true,
+  pageSizeOptions: ['10', '20', '30'],
+  showQuickJumper: true,
+  showTotal: (total) => `共 ${total} 条`,
+  current: 1,
+  total: 50,
+  onChange: handlePageChange
+})
+const data = reactive({
+  queryParams: {
+    fileName: ''
+  }
+})
+
+const { queryParams } = toRefs(data)
+
+function handlePageChange(page, pageSize) {
+  pagination.current = page
+  pagination.pageSize = pageSize
+  getOssByType()
+}
+
+onMounted(() => {
   getOssByType()
 })
 
 const getOssByType = async () => {
-  const res = await list() // 获取全部的设备信息
-  ossList = res.data
-  total.value = res.total
+  queryParams.pageNum = pagination.current
+  queryParams.pageSize = pagination.pageSize
+  const res = await list(queryParams)
+  Object.assign(ossList, res.rows)
+  pagination.total = res.total
 }
 const clickImg = (open) => {
   showUrl.value = open
-
-  console.log(showUrl.value)
 }
 </script>
 <style lang="scss" scoped></style>
