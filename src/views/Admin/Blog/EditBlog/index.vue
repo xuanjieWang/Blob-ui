@@ -11,18 +11,19 @@
         <input v-model="blogData.title" placeholder="请输入文章标题" />
         <p>文章类型:</p>
         <a-tree-select
-          v-model:value="blogData.type"
+          v-model:value="blogData.blogType"
           style="width: 300px"
           :tree-data="treeData"
           tree-checkable
           allow-clear
-          :show-checked-strategy="SHOW_PARENT"
+          :show-checked-strategy="TreeSelect.SHOW_All"
           placeholder="请选择博客类型"
           tree-node-filter-prop="label" />
       </div>
       <div class="flex gap-5">
         <p>创建时间:</p>
         <input type="datetime-local" id="datetimePicker" />
+        <span>{{ blogData.createTime }}</span>
       </div>
 
       <div class="flex gap-5 items-center">
@@ -48,11 +49,13 @@
 <script setup>
 import { onMounted, reactive, ref, watch } from 'vue'
 import { LeftOutlined, EditOutlined } from '@ant-design/icons-vue'
+import { TreeSelect } from 'ant-design-vue'
 import { getBlog, updateBlog } from '@/api/blog'
 import { listAll } from '@/api/blogType'
 import MarkdownIt from 'markdown-it'
 import { css_beautify, html_beautify } from 'js-beautify'
 import Vditor from 'vditor'
+
 import 'vditor/dist/index.css'
 
 const emit = defineEmits(['choseMenu'])
@@ -73,6 +76,7 @@ const compiledMarkdown = ref({})
 
 onMounted(async () => {
   const res = await getBlog(props.id)
+  console.log(res.data)
   blogData.value = res.data
   loadingEdit(res.data.text)
   loadingMD(res.data.text)
@@ -125,7 +129,7 @@ function mdPlugin(md) {
   }
 }
 
-function setCreateTime() {
+function setUpdateTime() {
   const datetimePicker = document.getElementById('datetimePicker')
   if (!datetimePicker.value) return
   const selectedDateTime = datetimePicker.value
@@ -138,7 +142,7 @@ function setCreateTime() {
   const hours = date.getHours().toString().padStart(2, '0')
   const minutes = date.getMinutes().toString().padStart(2, '0')
   const seconds = date.getSeconds().toString().padStart(2, '0')
-  blogData.value.createTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
+  blogData.value.updateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
 }
 
 function loadingEdit(data) {
@@ -172,13 +176,11 @@ const save = async () => {
   // md文件上传
   blogData.value.text = vditor.value.getValue()
 
-  blogData.value.blogType = new Array(blogData.value.type)
-
   // 时间更新
-  setCreateTime()
+  setUpdateTime()
+  await updateBlog(blogData.value)
 
   setTimeout(async () => {
-    await updateBlog(blogData.value)
     const res = await getBlog(props.id)
     blogData.value = res.data
     loadingEdit(res.data.text)

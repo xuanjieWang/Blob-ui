@@ -4,7 +4,7 @@
     <div class="flex items-center p-2 gap-3">
       <span>博客类型: &nbsp;</span>
       <a-tree-select
-        v-model:value="blogType"
+        v-model:value="queryParams.blogType"
         style="width: 20%"
         :tree-data="treeData"
         tree-checkable
@@ -39,7 +39,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, reactive, toRefs, defineEmits } from 'vue'
+import { ref, onMounted, reactive, toRefs, defineEmits, watch } from 'vue'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons-vue'
 import { TreeSelect } from 'ant-design-vue'
 import columns from './table'
@@ -63,12 +63,12 @@ var pagination = reactive({
 const data = reactive({
   queryParams: {
     pageNum: 1,
-    pageSize: 10
+    pageSize: 10,
+    blogType: []
   }
 })
 const { queryParams } = toRefs(data)
 
-const blogType = ref()
 var treeData = reactive([])
 
 onMounted(async () => {
@@ -118,14 +118,16 @@ const del = async (id) => {
   await delBlog(id)
   setTimeout(async () => {
     const res = await list(queryParams.value) // 获取全部的设备信息
-    blogList = res.rows
+    blogList.length = 0
+    blogList.push(...res.rows)
   }, 1000)
 }
 
 const getBlogByType = async () => {
-  if (!blogType.value) return
-  const res = await list({ blogType: blogType.value }) // 获取全部的设备信息
-  blogList = res.rows
+  if (!queryParams.value.blogType) return
+  const res = await list(queryParams.value) // 获取全部的设备信息
+  blogList.length = 0
+  blogList.push(...res.rows)
 }
 </script>
 <style lang="scss" scoped></style>
