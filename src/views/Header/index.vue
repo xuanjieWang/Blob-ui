@@ -31,7 +31,7 @@ import { blogList, functionList } from './HeadleTable.js'
 const { proxy } = getCurrentInstance()
 
 function go(path) {
-  proxy.$router.push(path) // 编程式导航
+  proxy.$router.push(path)
 }
 </script>
 <style lang="scss">

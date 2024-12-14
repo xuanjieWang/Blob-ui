@@ -5,15 +5,19 @@ var blogList = [
   },
   {
     name: '学习笔记',
-    path: '/lifeBlog'
+    path: '/Blogs'
   },
   {
     name: '生活',
-    path: '/lifeBlog'
+    path: '/Blogs'
   },
   {
-    name: 'Github项目',
-    path: '/GithubProject'
+    name: 'Github',
+    path: '/Blogs'
+  },
+  {
+    name: '总结',
+    path: '/Blogs'
   }
 ]
 

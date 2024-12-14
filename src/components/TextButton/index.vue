@@ -6,7 +6,7 @@
       <div v-if="props.items" class="down-triangle"></div>
     </div>
     <div class="items flex flex-col items-center" v-if="showText && props.items.length > 0">
-      <div v-for="item in props.items" class="gap-5" @click="go(item['path'])">
+      <div v-for="item in props.items" class="gap-5" @click="go(item['path'], item['name'])">
         <div class="optionItem">
           <span>{{ item['name'] }}</span>
         </div>
@@ -30,8 +30,18 @@ const props = defineProps({
   }
 })
 
-function go(path) {
-  proxy.$router.push(path) // 编程式导航
+function go(path, name) {
+  console.log(props.text)
+  if ('博客' == props.text) {
+    proxy.$router.push({
+      path: path,
+      query: {
+        type: name
+      }
+    })
+  } else {
+    proxy.$router.push(path)
+  }
 }
 </script>
 <style lang="scss" scoped>

@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, reactive, toRefs, getCurrentInstance } from 'vue'
+import { ref, onMounted, onUnmounted, reactive, toRefs, getCurrentInstance, watchEffect } from 'vue'
 import { list } from '@/api/blog'
 import { useRoute } from 'vue-router'
 
@@ -37,9 +37,22 @@ var blogList = reactive([])
 const total = ref()
 
 onMounted(async () => {
+  getBlogData()
+})
+
+const getBlogData = async () => {
+  blogList.length = 0
   const res = await list(queryParams.value) // 获取全部的设备信息
   if (res.rows) Object.assign(blogList, res.rows)
   total.value = res.total
+}
+
+watchEffect(() => {
+  const type = proxy.$route.query.type
+  if (type) {
+    queryParams.value.type = type
+    getBlogData()
+  }
 })
 
 const checkBlog = (id) => {

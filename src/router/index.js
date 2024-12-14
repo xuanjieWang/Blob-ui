@@ -28,11 +28,6 @@ const router = createRouter({
       component: import('../views/Context/blog/allBlog/index.vue')
     },
     {
-      path: '/lifeBlog',
-      name: 'lifeBlog',
-      component: import('../views/Context/blog/lifeBlog/index.vue')
-    },
-    {
       path: '/login',
       name: 'login',
       component: import('../views/Admin/login/index.vue')
@@ -43,19 +38,19 @@ const router = createRouter({
       component: import('../views/Header/aboutMe/index.vue')
     },
     {
-      path: '/GithubProject',
-      name: 'GithubProject',
-      component: import('/src/views/Context/blog/GithubProject/index.vue')
+      path: '/Blogs',
+      name: 'Blogs',
+      component: import('../views/Context/blog/Blogs/index.vue')
     },
     {
       path: '/wallHaven',
       name: 'wallHaven',
-      component: import('/src/views/Context/blog/GithubProject/index.vue')
+      component: import('/src/views/Context/blog/wallHaven/index.vue')
     },
     {
       path: '/Video',
       name: 'Video',
-      component: import('/src/views/Context/blog/GithubProject/index.vue')
+      component: import('/src/views/Context/blog/Video/index.vue')
     },
     ...adminRouter
   ]
